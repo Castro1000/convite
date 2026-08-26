@@ -279,8 +279,8 @@ section.alt { background: var(--cream-alt); }
   text-align: center;
   white-space: pre-line;
   font-family: 'Great Vibes', cursive;
-  font-size: 2.3rem;
-  line-height: 0.95;
+  font-size: 2.15rem;
+  line-height: 1.75;
   color: var(--gold-dark);
   text-shadow: 0 1px 10px rgba(255,255,255,0.85), 0 1px 10px rgba(255,255,255,0.85);
   transition: opacity 0.4s ease;
