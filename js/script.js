@@ -19,6 +19,16 @@ if ("scrollRestoration" in history) {
 }
 window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
+// Registra o service worker que guarda o site em cache — depois do
+// primeiro acesso, o convite continua abrindo mesmo sem internet.
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("sw.js").catch(() => {
+      /* navegador sem suporte ou bloqueado — o site continua funcionando normalmente online */
+    });
+  });
+}
+
 const WEDDING = {
   // Nomes do casal (aparecem no envelope, no topo e no rodapé)
   noiva: "INGRID APARECIDA",
