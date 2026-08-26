@@ -248,21 +248,7 @@ section.alt { background: var(--cream-alt); }
 }
 .envelope.is-open .envelope-seamline { opacity: 0; }
 
-.envelope-names-cover {
-  position: absolute;
-  left: 6%; right: 6%;
-  top: calc(42% - 215px);
-  z-index: 10;
-  text-align: center;
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.1rem;
-  color: var(--gold-dark);
-  text-shadow: 0 2px 10px rgba(46,58,76,0.18);
-  transition: opacity 0.4s ease;
-}
-.envelope.is-open .envelope-names-cover { opacity: 0; }
-
-/* Laço que "amarra" o convite — desata e cai ao tocar */
+/* Arranjo de flores no centro do convite, com os nomes dentro do arco */
 .envelope-ribbon {
   position: absolute;
   top: 42%;
@@ -274,20 +260,6 @@ section.alt { background: var(--cream-alt); }
 }
 .envelope-ribbon:active .bow-imagem { transform: translate(-50%, -42%) scale(0.94); }
 
-.ribbon-band {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 50%;
-  background: linear-gradient(180deg, #6fa3dd 0%, #2f74c2 48%, #16539f 100%);
-  box-shadow: 0 10px 18px -6px rgba(20,32,54,0.4);
-  transition: transform 0.6s cubic-bezier(.5,0,.75,0) 0.2s, opacity 0.6s ease 0.35s;
-}
-.ribbon-band.left { left: 0; transform-origin: left center; }
-.ribbon-band.right { right: 0; transform-origin: right center; }
-.envelope.is-open .ribbon-band.left { transform: translateY(160%) rotate(-35deg); opacity: 0; }
-.envelope.is-open .ribbon-band.right { transform: translateY(160%) rotate(35deg); opacity: 0; }
-
-/* Laço real (foto), sobreposto à fita — desamarra e cai ao abrir */
 .bow-imagem {
   position: absolute;
   top: 50%; left: 50%;
@@ -297,6 +269,22 @@ section.alt { background: var(--cream-alt); }
   filter: drop-shadow(0 12px 22px rgba(20,32,54,0.35));
   transition: transform 0.6s cubic-bezier(.5,0,.75,0) 0.05s, opacity 0.5s ease 0.15s;
 }
+
+.envelope-names-cover {
+  position: absolute;
+  top: 50%; left: 50%;
+  width: 190px;
+  transform: translate(-50%, -42%);
+  z-index: 2;
+  text-align: center;
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.55rem;
+  line-height: 1.2;
+  color: var(--gold-dark);
+  text-shadow: 0 1px 6px rgba(255,255,255,0.7);
+  transition: opacity 0.4s ease;
+}
+.envelope.is-open .envelope-names-cover { opacity: 0; }
 .envelope.is-open .bow-imagem {
   transform: translate(-50%, -42%) translateY(160px) rotate(20deg) scale(0.7);
   opacity: 0;
