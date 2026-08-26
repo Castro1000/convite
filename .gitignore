@@ -1,0 +1,8 @@
+node_modules/
+
+# Arquivos antigos/não usados pelo site atual (mantidos localmente, fora do git)
+images/eu e ingrid.png
+images/gif.gif
+images/laço.png
+images/selo.png
+images/video-transicao.gif

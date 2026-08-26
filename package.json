@@ -1,0 +1,12 @@
+{
+  "name": "convite-casamento",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site do casamento — servido como arquivos estáticos.",
+  "scripts": {
+    "start": "serve ."
+  },
+  "dependencies": {
+    "serve": "^14.2.1"
+  }
+}

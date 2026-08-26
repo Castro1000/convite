@@ -1,0 +1,69 @@
+COMO ADICIONAR SUAS FOTOS REAIS
+================================
+
+Esta pasta é onde ficam as fotos do site (fotos do casal, galeria etc).
+
+1) Copie suas fotos para dentro desta pasta "images".
+   Dica: nomeie os arquivos sem espaço/acento, ex: foto-01.jpg, casal-praia.jpg
+
+2) Para colocar a FOTO PRINCIPAL do casal na seção "Nossa galeria":
+   Abra o arquivo index.html, procure pela seção <section id="galeria">.
+   Cada foto é um bloco assim:
+
+     <div class="gallery-item">
+       <div class="gallery-placeholder">...</div>
+     </div>
+
+   Troque o conteúdo de dentro por uma tag de imagem, por exemplo:
+
+     <div class="gallery-item">
+       <img src="images/foto-01.jpg" alt="Nós dois na praia">
+     </div>
+
+   Repita para cada foto (pode ter quantas quiser, é só duplicar o bloco).
+
+3) O tamanho ideal de cada foto da galeria é quadrado (ex: 1000x1000px),
+   mas o site já corta automaticamente para caber bonito no grid.
+
+4) Para deixar o site mais leve (importante com internet fraca!),
+   comprima as fotos antes de subir. Ferramentas gratuitas:
+   - squoosh.app (online)
+   - TinyPNG.com (online)
+   - ou peça para o Claude no VSCode comprimir/redimensionar pra você.
+
+5) FOTO CIRCULAR do topo (logo abaixo do "O início do nosso para sempre"):
+   Procure por <div class="hero-photo-frame"> no index.html.
+   Dentro dela tem:
+
+     <div class="hero-photo">
+       <div class="hero-photo-placeholder">...</div>
+     </div>
+
+   Troque o conteúdo de <div class="hero-photo"> por uma imagem, ex:
+
+     <div class="hero-photo">
+       <img src="images/foto-casal.jpg" alt="Noiva e noivo">
+     </div>
+
+   Foto ideal: quadrada (ex: 800x800px), o site já deixa redonda sozinho.
+
+6) FOTO GRANDE em destaque (a que aparece em tela cheia, logo após o
+   topo, com uma borda "de nuvem" na parte de baixo):
+   Procure por <section id="feature-photo"> no index.html. Dentro tem:
+
+     <div class="feature-photo-media">
+       <div class="feature-photo-placeholder">...</div>
+     </div>
+
+   Troque o conteúdo de <div class="feature-photo-media"> por uma imagem, ex:
+
+     <div class="feature-photo-media">
+       <img src="images/foto-destaque.jpg" alt="Casal">
+     </div>
+
+   Foto ideal: bem larga/paisagem (ex: 1600x1000px) e leve (comprimida),
+   já que ela ocupa a tela inteira.
+
+7) Se quiser trocar o ícone decorativo do envelope de abertura, me
+   chame no VSCode descrevendo o que você quer — a estrutura já está
+   pronta para isso.

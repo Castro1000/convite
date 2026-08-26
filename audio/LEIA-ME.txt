@@ -1,0 +1,22 @@
+COMO ADICIONAR A MÚSICA DE FUNDO
+==================================
+
+1) Salve o arquivo da música aqui dentro desta pasta "audio", com o nome:
+
+     musica.mp3
+
+   (formato MP3, sem espaço/acento no nome do arquivo)
+
+2) Pronto — o site já está configurado pra tocar esse arquivo automaticamente
+   assim que o convidado tocar no envelope pra abrir o convite.
+
+3) O convidado pode pausar/ativar a música a qualquer momento clicando no
+   botão com ícone de nota musical, no canto inferior esquerdo da tela.
+
+4) Se quiser trocar o nome do arquivo ou usar outro formato (ex: .ogg),
+   procure por <audio id="musica-fundo"> no index.html e ajuste o "src".
+
+Dica: prefira um trecho de 2 a 4 minutos e comprimido (128kbps já soa bem
+e deixa o site mais leve pra quem tem internet fraca). Ferramentas como
+o próprio conversor do Google ("mp3 converter online") ou o Audacity
+(gratuito) ajudam a cortar/comprimir o áudio.

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noiva &amp; Noivo — Nosso Casamento</title>
+<meta name="description" content="Você está convidado para celebrar o nosso casamento. Confira todos os detalhes da cerimônia, recepção e confirme sua presença.">
+<link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+
+<!-- ===================================================================
+     Este arquivo puxa nomes, data, local, WhatsApp e chave Pix de UM
+     LUGAR SÓ: o objeto WEDDING no topo do arquivo js/script.js.
+     Edite lá primeiro — o site inteiro atualiza sozinho.
+     Textos mais longos (nossa história, dress code, padrinhos) são
+     editados aqui mesmo no HTML, nos blocos marcados "EDITE AQUI".
+     =================================================================== -->
+
+<link rel="stylesheet" href="css/style.css?v=13">
+</head>
+<body class="locked">
+
+  <!-- =========================================================
+       TELA DE ENVELOPE (abre o convite)
+       ========================================================= -->
+  <div id="envelope-screen">
+    <div class="envelope" id="envelope">
+      <div class="envelope-half left"></div>
+      <div class="envelope-half right"></div>
+      <div class="envelope-flash"></div>
+      <div class="envelope-seamline"></div>
+      <p class="envelope-names-cover" data-field="envelopeNomesCurto">Noiva &amp; Noivo</p>
+      <div class="envelope-ribbon" id="envelope-ribbon">
+        <div class="ribbon-band left"></div>
+        <div class="ribbon-band right"></div>
+        <img class="bow-imagem" src="images/laco.png" alt="Laço">
+      </div>
+    </div>
+    <p class="envelope-hint">Toque para abrir</p>
+  </div>
+
+  <!-- =========================================================
+       NAVBAR
+       ========================================================= -->
+  <nav id="navbar">
+    <div class="nav-inner">
+      <span class="nav-logo" data-field="monogram">N &amp; N</span>
+      <ul class="nav-links">
+        <li><a href="#evento">Cerimônia</a></li>
+        <li><a href="#galeria">Galeria</a></li>
+        <li><a href="#presentes">Presentes</a></li>
+        <li><a href="#rsvp">Confirmar</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- =========================================================
+       HERO
+       ========================================================= -->
+  <header id="hero">
+    <div class="hero-frame fade-up is-visible">
+      <svg class="hero-corner left" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M2 2c14 0 20 3 24 8M2 2c0 14 3 20 8 24M2 2c22 4 38 20 42 42"/>
+      </svg>
+      <svg class="hero-corner right" viewBox="0 0 60 60" fill="none" stroke="currentColor" stroke-width="1">
+        <path d="M58 2c-14 0 -20 3 -24 8M58 2c0 14 -3 20 -8 24M58 2c-22 4 -38 20 -42 42"/>
+      </svg>
+
+      <div class="ring-birds" aria-hidden="true">
+        <svg class="ring-bird bird-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 14c3-4 7-4 10 0 3-4 7-4 10 0"/></svg>
+        <svg class="ring-bird bird-2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 14c3-4 7-4 10 0 3-4 7-4 10 0"/></svg>
+        <svg class="ring-bird bird-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 14c3-4 7-4 10 0 3-4 7-4 10 0"/></svg>
+        <svg class="ring-bird bird-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 14c3-4 7-4 10 0 3-4 7-4 10 0"/></svg>
+        <svg class="ring-bird bird-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 14c3-4 7-4 10 0 3-4 7-4 10 0"/></svg>
+        <svg class="ring-bird bird-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"><path d="M2 14c3-4 7-4 10 0 3-4 7-4 10 0"/></svg>
+      </div>
+      <div class="monogram-ring" data-field="monogram">N &amp; N</div>
+      <p class="hero-kicker">O início do nosso para sempre</p>
+
+      <div class="hero-photo-frame">
+        <div class="hero-photo">
+          <img src="images/foto2.jpeg" alt="Ingrid e Ivaney">
+        </div>
+      </div>
+
+      <h1 class="hero-names">
+        <span class="hero-name" data-field="noivaTitulo">Noiva</span>
+        <span class="amp">&amp;</span>
+        <span class="hero-name" data-field="noivoTitulo">Noivo</span>
+      </h1>
+      <p class="hero-sub">Unidos pelo amor, convidamos você para celebrar conosco esse novo capítulo da nossa história.</p>
+      <div class="scroll-cue"><span class="line"></span>role para baixo</div>
+    </div>
+  </header>
+
+  <!-- =========================================================
+       FOTO EM DESTAQUE (tela cheia, com transição em "nuvem")
+       EDITE AQUI: troque o placeholder pela foto real do casal.
+       ========================================================= -->
+  <section id="feature-photo">
+    <div class="feature-photo-media">
+      <img src="images/foto1.jpeg" alt="Ingrid e Ivaney">
+    </div>
+    <div class="feature-photo-edge top"></div>
+    <div class="feature-photo-edge"></div>
+  </section>
+
+  <!-- =========================================================
+       DATA EM DESTAQUE + ACESSO RÁPIDO
+       ========================================================= -->
+  <section id="date-highlight">
+    <div class="container center">
+      <p class="date-highlight-day" data-field="dataDia">00</p>
+      <p class="date-highlight-month" data-field="dataMes">de Mês</p>
+      <p class="date-highlight-hour" data-field="horaSimples">às 00h</p>
+
+      <div class="quick-actions">
+        <button type="button" id="btn-video-local" class="quick-action">
+          <span class="quick-action-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 2C8.1 2 5 5.1 5 9c0 5.2 7 13 7 13s7-7.8 7-13c0-3.9-3.1-7-7-7z"/><circle cx="12" cy="9" r="2.3"/></svg>
+          </span>
+          <span class="quick-action-label">Local</span>
+        </button>
+        <a href="#rsvp" class="quick-action">
+          <span class="quick-action-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 13c2.6.4 4.5 2.6 4.5 5.4"/></svg>
+          </span>
+          <span class="quick-action-label">Confirmar presença</span>
+        </a>
+        <a href="#presentes" class="quick-action">
+          <span class="quick-action-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-4.4-9.5-8.6C.8 9 2 5.5 5.3 4.7 7.6 4.2 9.8 5.3 12 7.8c2.2-2.5 4.4-3.6 6.7-3.1 3.3.8 4.5 4.3 2.8 7.7C19 16.6 12 21 12 21z"/></svg>
+          </span>
+          <span class="quick-action-label">Presentes</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CONTAGEM REGRESSIVA
+       ========================================================= -->
+  <section id="countdown">
+    <div class="container center">
+      <div class="ornament">
+        <svg viewBox="0 0 200 20" fill="none" stroke="currentColor" stroke-width="1">
+          <line x1="0" y1="10" x2="80" y2="10"/><circle cx="100" cy="10" r="4"/><line x1="120" y1="10" x2="200" y2="10"/>
+        </svg>
+      </div>
+      <p class="eyebrow">Falta pouco</p>
+      <h2 class="section-title">Contagem regressiva para o grande dia</h2>
+      <div class="countdown-grid" id="countdown-grid">
+        <div class="countdown-box"><div class="countdown-number" id="cd-days">00</div><div class="countdown-label">Dias</div></div>
+        <div class="countdown-box"><div class="countdown-number" id="cd-hours">00</div><div class="countdown-label">Horas</div></div>
+        <div class="countdown-box"><div class="countdown-number" id="cd-minutes">00</div><div class="countdown-label">Minutos</div></div>
+        <div class="countdown-box"><div class="countdown-number" id="cd-seconds">00</div><div class="countdown-label">Segundos</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       CERIMÔNIA & RECEPÇÃO
+       ========================================================= -->
+  <section id="evento">
+    <div class="container center">
+      <p class="eyebrow">Local e horário</p>
+      <h2 class="section-title">Cerimônia &amp; Recepção</h2>
+      <p class="section-lead">Preparamos cada detalhe com muito carinho. Confira abaixo onde e quando vamos celebrar.</p>
+
+      <div class="event-grid">
+        <div class="event-card fade-up">
+          <div class="event-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21c-4-3-8-6.5-8-11a5 5 0 0 1 8-4 5 5 0 0 1 8 4c0 4.5-4 8-8 11z"/></svg>
+          </div>
+          <h3>Cerimônia</h3>
+          <p class="event-when" data-field="cerimoniaHorario">00h00</p>
+          <p class="event-where">
+            <span data-field="cerimoniaLocal">Nome do local</span><br>
+            <span data-field="cerimoniaEndereco">Endereço completo</span>
+          </p>
+          <div class="event-actions">
+            <a class="btn btn-outline" id="cerimonia-maps" href="#" target="_blank" rel="noopener">Como chegar</a>
+            <button class="btn btn-solid" id="cerimonia-calendar">Adicionar à agenda</button>
+          </div>
+        </div>
+
+        <div class="event-card fade-up">
+          <div class="event-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M6 3l1 8a5 5 0 0 0 10 0l1-8M12 11v6M8 21h8"/></svg>
+          </div>
+          <h3>Recepção</h3>
+          <p class="event-when" data-field="recepcaoHorario">00h00</p>
+          <p class="event-where">
+            <span data-field="recepcaoLocal">Nome do espaço de festa</span><br>
+            <span data-field="recepcaoEndereco">Endereço completo</span>
+          </p>
+          <div class="event-actions">
+            <a class="btn btn-outline" id="recepcao-maps" href="#" target="_blank" rel="noopener">Como chegar</a>
+            <button class="btn btn-solid" id="recepcao-calendar">Adicionar à agenda</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       DRESS CODE
+       EDITE AQUI: ajuste o texto e as cores sugeridas.
+       ========================================================= -->
+  <section id="dresscode" class="alt">
+    <div class="container center">
+      <p class="eyebrow">Traje</p>
+      <h2 class="section-title">Código de Vestimenta</h2>
+      <div class="dresscode-wrap">
+        <p>Sugerimos traje <strong>esporte fino / passeio completo</strong>, nos tons abaixo. Pedimos, com carinho, para evitar branco e tons muito claros — reservados para a noiva.</p>
+        <div class="palette-swatches">
+          <span class="swatch" style="background:#d9e2f3"></span>
+          <span class="swatch" style="background:#aec0e4"></span>
+          <span class="swatch" style="background:#7f97d6"></span>
+          <span class="swatch" style="background:#4d6fc4"></span>
+          <span class="swatch" style="background:#2c3e82"></span>
+        </div>
+        <p class="dresscode-note">Essas são só sugestões — o mais importante é vir com o coração pronto para celebrar com a gente!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       PADRINHOS E MADRINHAS
+       EDITE AQUI: troque nomes/papéis, adicione ou remova cards.
+       Para remover a seção inteira, apague de <section id="padrinhos"> até </section>.
+       ========================================================= -->
+  <section id="padrinhos">
+    <div class="container center">
+      <p class="eyebrow">Ao nosso lado</p>
+      <h2 class="section-title">Padrinhos &amp; Madrinhas</h2>
+      <div class="sponsors-grid">
+        <div class="fade-up"><div class="sponsor-initial">A</div><p class="name">José Roberto de Oliveira</p><p class="role">Padrinho</p></div>
+        <div class="fade-up"><div class="sponsor-initial">B</div><p class="name">Regiane Leal</p><p class="role">Madrinha</p></div>
+        <div class="fade-up"><div class="sponsor-initial">C</div><p class="name">José Sampaio</p><p class="role">Padrinho</p></div>
+        <div class="fade-up"><div class="sponsor-initial">D</div><p class="name">Rosami Moreira</p><p class="role">Madrinha</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       GALERIA DE FOTOS
+       EDITE AQUI: veja instruções em images/LEIA-ME.txt para
+       trocar os placeholders pelas fotos reais do casal.
+       ========================================================= -->
+  <section id="galeria" class="alt">
+    <div class="container center">
+      <p class="eyebrow">Registros</p>
+      <h2 class="section-title">Nossa galeria</h2>
+      <p class="section-lead">Um recorte dos nossos melhores momentos juntos.</p>
+      <div class="gallery-grid" id="gallery-grid">
+        <div class="gallery-item"><img src="images/1.jpeg" alt="Ingrid e Ivaney"></div>
+        <div class="gallery-item"><img src="images/2.jpeg" alt="Ingrid e Ivaney"></div>
+        <div class="gallery-item"><img src="images/3.jpeg" alt="Ingrid e Ivaney"></div>
+        <div class="gallery-item"><img src="images/4.jpeg" alt="Ingrid e Ivaney"></div>
+        <div class="gallery-item"><img src="images/5.jpeg" alt="Ingrid e Ivaney"></div>
+        <div class="gallery-item"><img src="images/6.jpeg" alt="Ingrid e Ivaney"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       RSVP — CONFIRMAÇÃO VIA WHATSAPP
+       ========================================================= -->
+  <section id="rsvp">
+    <div class="container center">
+      <p class="eyebrow">Sua presença é o nosso maior presente</p>
+      <h2 class="section-title">Confirme sua presença</h2>
+      <p class="section-lead">Por favor, confirme até <span data-field="rsvpPrazo">a data limite</span> para que possamos organizar tudo com carinho.</p>
+      <div class="rsvp-box fade-up">
+        <a href="#" id="rsvp-whatsapp" class="btn btn-whatsapp" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 4 3.4.6.2 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-.9.1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
+          Confirmar presença no WhatsApp
+        </a>
+        <p class="rsvp-note">Ao clicar, uma mensagem já será preparada — é só enviar!</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========================================================
+       LISTA DE PRESENTES / PIX — versão divertida
+       Última seção antes do rodapé.
+       EDITE AQUI: a lista de itens (título, valor, emoji/foto) está no
+       array LISTA_PRESENTES, no topo do js/script.js. Para usar fotos de
+       meme reais em vez do emoji, troque o campo "imagem" do item por
+       "images/sua-foto.jpg" — o mesmo esquema usado na galeria.
+       ========================================================= -->
+  <section id="presentes">
+    <div class="container center">
+      <p class="eyebrow">Com carinho (e bom humor)</p>
+      <h2 class="section-title">Lista de presentes</h2>
+      <p class="section-lead">A maior alegria é ter você com a gente nesse dia. Se quiser nos ajudar com um presente, aqui vai um cardápio bem sincero de sugestões — é só tocar num item pra abrir o Pix já pronto.</p>
+
+      <div class="gift-grid" id="gift-grid"></div>
+
+      <p class="dresscode-note" style="margin-top:22px;">Essas são só sugestões (com bastante humor) — qualquer valor é bem-vindo e recebido com o mesmo carinho!</p>
+    </div>
+  </section>
+
+  <!-- Modal de pagamento Pix (aberto ao clicar em um item da lista) -->
+  <div id="pix-modal">
+    <div class="pix-modal-card">
+      <span id="pix-modal-close">&times;</span>
+      <p class="pix-modal-titulo" id="pix-modal-titulo">Item</p>
+      <p class="pix-modal-valor" id="pix-modal-valor">R$ 0,00</p>
+      <div class="pix-qrcode" id="pix-qrcode"></div>
+      <p class="pix-modal-hint">Escaneie o QR Code ou copie o código abaixo no app do seu banco</p>
+      <div class="pix-copy-box">
+        <textarea id="pix-copy-texto" readonly></textarea>
+        <button id="pix-copy-btn" class="btn btn-solid" type="button">Copiar código Pix</button>
+      </div>
+      <p class="copy-feedback" id="pix-feedback"></p>
+      <p class="pix-modal-titular">Titular: <span data-field="pixNome">Nome do titular</span></p>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
+  <footer>
+    <p class="foot-monogram" data-field="monogram">N &amp; N</p>
+    <p class="foot-note">Com amor, contamos os dias para celebrar com você.</p>
+    <p class="foot-credit">Feito especialmente para o nosso grande dia 🤍</p>
+  </footer>
+
+  <!-- Lightbox da galeria -->
+  <div id="lightbox">
+    <span id="lightbox-close">&times;</span>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
+  <!-- Vídeo 360° do local da cerimônia — abre ao clicar em "Local".
+       EDITE AQUI: troque o arquivo em video/video.mp4 ou o rótulo abaixo. -->
+  <div id="video-modal">
+    <span id="video-modal-close">&times;</span>
+    <p class="video-modal-label">Basílica de Santo Antônio</p>
+    <video id="video-local" src="video/video.mp4" playsinline></video>
+  </div>
+
+  <button id="back-to-top" aria-label="Voltar ao topo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+  </button>
+
+  <!-- Música de fundo — toca a partir do momento em que o convite abre.
+       EDITE AQUI: veja instruções em audio/LEIA-ME.txt -->
+  <audio id="musica-fundo" loop preload="none">
+    <source src="audio/musica.mp3" type="audio/mpeg">
+  </audio>
+  <button id="music-toggle" aria-label="Ativar ou desativar a música">
+    <svg class="icon-tocando" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/></svg>
+    <svg class="icon-mudo" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18V5l11-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="17" cy="16" r="3"/><line x1="2.5" y1="2.5" x2="21.5" y2="21.5"/></svg>
+  </button>
+
+  <script src="js/qrcode.js"></script>
+  <script src="js/script.js?v=12"></script>
+</body>
+</html>
