@@ -151,7 +151,7 @@ function popularCampos() {
     noivo: WEDDING.noivo,
     noivaTitulo: paraTituloCase(WEDDING.noiva),
     noivoTitulo: paraTituloCase(WEDDING.noivo),
-    envelopeNomesCurto: `${paraTituloCase(primeiroNome(WEDDING.noiva))} & ${paraTituloCase(primeiroNome(WEDDING.noivo))}`,
+    envelopeNomesCurto: `${paraTituloCase(primeiroNome(WEDDING.noiva))}\n& ${paraTituloCase(primeiroNome(WEDDING.noivo))}`,
     monogram: monograma,
     dataExtenso: formatarDataExtenso(weddingDate),
     diaSemanaHora: formatarDiaHora(weddingDate),
