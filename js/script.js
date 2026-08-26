@@ -576,27 +576,18 @@ function configurarVideoLocal() {
   const modal = document.getElementById("video-modal");
   const video = document.getElementById("video-local");
   const closeBtn = document.getElementById("video-modal-close");
-  const musica = document.getElementById("musica-fundo");
   if (!btn || !modal || !video) return;
 
-  let musicaTocavaAntes = false;
-
+  // O vídeo é mudo (veja o atributo "muted" no index.html) — a música
+  // do convite continua tocando no fundo normalmente, sem pausar.
   function abrir() {
     modal.classList.add("open");
-    if (musica) {
-      musicaTocavaAntes = !musica.paused;
-      musica.pause();
-    }
     video.currentTime = 0;
     video.play().catch(() => {});
   }
   function fechar() {
     modal.classList.remove("open");
     video.pause();
-    if (musica && musicaTocavaAntes) {
-      musicaTocavaAntes = false;
-      musica.play().catch(() => {});
-    }
   }
 
   btn.addEventListener("click", abrir);
