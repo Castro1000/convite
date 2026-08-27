@@ -192,21 +192,25 @@ section.alt { background: var(--cream-alt); }
    lado ao tocar, revelando a página por trás. A de cima vem com uma
    textura azul serenity, se destacando como a aba que "tampa" o
    envelope — as outras três ficam lisas. Sombras marcadas nas bordas
-   de cada aba dão a profundidade 3D das dobras. Quando você tiver a
-   imagem do envelope, é só trocar o background por
+   de cada aba dão a profundidade 3D das dobras. O fundo é levemente
+   transparente (com desfoque) pra dar uma espiada bem pálida no
+   conteúdo do convite por trás, como se already tivesse algo "dentro".
+   Quando você tiver a imagem do envelope, é só trocar o background por
    url('../images/sua-imagem.png'). */
 .envelope-flap4 {
   position: absolute;
   inset: 0;
-  background: linear-gradient(170deg, var(--white) 0%, var(--cream-alt) 100%);
+  background: linear-gradient(170deg, rgba(255,255,255,0.86) 0%, rgba(233,240,248,0.86) 100%);
+  backdrop-filter: blur(7px) saturate(1.15);
+  -webkit-backdrop-filter: blur(7px) saturate(1.15);
   transition: transform 1s cubic-bezier(.6,.05,.15,1) 0.3s;
   z-index: 2;
 }
 .envelope-flap4.top {
   clip-path: polygon(0 0, 100% 0, 50% 50%);
   background:
-    repeating-linear-gradient(135deg, rgba(255,255,255,0.32) 0 2px, transparent 2px 16px),
-    linear-gradient(160deg, var(--gold-light) 0%, var(--gold) 55%, var(--gold-dark) 100%);
+    repeating-linear-gradient(135deg, rgba(255,255,255,0.26) 0 2px, transparent 2px 16px),
+    linear-gradient(160deg, rgba(199,214,236,0.86) 0%, rgba(146,168,209,0.86) 55%, rgba(75,106,153,0.88) 100%);
   filter: drop-shadow(0 2px 0 rgba(255,255,255,0.35)) drop-shadow(0 8px 14px rgba(20,32,54,0.4));
 }
 .envelope-flap4.bottom {
@@ -276,7 +280,8 @@ section.alt { background: var(--cream-alt); }
   position: relative;
   z-index: 1;
   font-family: 'Great Vibes', cursive;
-  font-size: 1.7rem;
+  font-size: 1.35rem;
+  letter-spacing: -0.01em;
   line-height: 1;
   color: var(--ink);
   text-shadow: 0 1px 0 rgba(255,255,255,0.65), 0 0 6px rgba(255,255,255,0.5);

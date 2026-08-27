@@ -10,7 +10,7 @@
    assim o navegador sabe que precisa baixar a versão nova.
    ===================================================================== */
 
-const CACHE_VERSAO = "convite-v21";
+const CACHE_VERSAO = "convite-v22";
 
 const ARQUIVOS_PARA_GUARDAR = [
   "./",
