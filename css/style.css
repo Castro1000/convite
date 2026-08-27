@@ -188,52 +188,58 @@ section.alt { background: var(--cream-alt); }
   overflow: hidden;
 }
 
-/* Foto do casal, já visível de fundo (menos uma faixa embaixo, pro
-   texto "toque para abrir" ficar numa área lisa) */
-.cover-foto {
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  bottom: 58px;
-  z-index: 1;
-}
-.cover-foto img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 18%;
-  /* deixa a foto um pouco mais clara/suave, sem exagerar */
-  filter: saturate(0.85) brightness(1.06) contrast(0.96);
-}
-/* véu bem sutil, só pra suavizar, sem escurecer (não tem mais texto
-   sobre a foto agora) */
-.cover-foto::after {
-  content: '';
+/* As quatro abas do envelope — lisas (sem textura), dobram em X e se
+   abrem cada uma pro seu lado ao tocar, revelando a página por trás.
+   Quando você tiver a imagem do envelope, é só trocar esse
+   background por url('../images/sua-imagem.png'). */
+.envelope-flap4 {
   position: absolute;
   inset: 0;
-  background: rgba(255,250,240,0.1);
+  background: linear-gradient(170deg, var(--white) 0%, var(--cream-alt) 100%);
+  transition: transform 1s cubic-bezier(.6,.05,.15,1) 0.3s;
+  z-index: 2;
 }
+.envelope-flap4.top {
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  filter: drop-shadow(0 4px 4px rgba(20,32,54,0.2));
+}
+.envelope-flap4.bottom {
+  clip-path: polygon(0 100%, 100% 100%, 50% 50%);
+  filter: drop-shadow(0 -3px 4px rgba(20,32,54,0.12)) brightness(0.97);
+}
+.envelope-flap4.left {
+  clip-path: polygon(0 0, 0 100%, 50% 50%);
+  filter: drop-shadow(3px 0 4px rgba(20,32,54,0.14)) brightness(0.985);
+}
+.envelope-flap4.right {
+  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+  filter: drop-shadow(-3px 0 4px rgba(20,32,54,0.14)) brightness(0.985);
+}
+.envelope.is-open .envelope-flap4.top    { transform: translateY(-105%); }
+.envelope.is-open .envelope-flap4.bottom { transform: translateY(105%); }
+.envelope.is-open .envelope-flap4.left   { transform: translateX(-105%); }
+.envelope.is-open .envelope-flap4.right  { transform: translateX(105%); }
 
-/* Aba única no topo, tipo aba de envelope de verdade, com a textura
-   floral — se levanta e some ao tocar. */
-.cover-flap {
+/* Linha fina marcando as quatro dobras, formando um X discreto */
+.envelope-x-creases {
   position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 19%;
-  background:
-    url('../images/textura-flores.svg') repeat,
-    linear-gradient(170deg, var(--white) 0%, var(--cream-alt) 100%);
-  background-size: 150px 150px, auto;
-  clip-path: polygon(0 0, 100% 0, 50% 100%);
-  filter: drop-shadow(0 10px 16px rgba(20,32,54,0.35));
+  inset: 0;
   z-index: 3;
-  transition: transform 0.9s cubic-bezier(.6,.05,.15,1) 0.2s, opacity 0.5s ease 0.2s;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
 }
-.envelope.is-open .cover-flap { transform: translateY(-115%); opacity: 0; }
+.envelope-x-creases path {
+  fill: none;
+  stroke: rgba(74,106,153,0.28);
+  stroke-width: 0.5;
+  vector-effect: non-scaling-stroke;
+}
+.envelope.is-open .envelope-x-creases { opacity: 0; }
 
-/* Clarão que estoura no ponto da aba assim que ela começa a levantar */
+/* Clarão que estoura no centro assim que as abas começam a abrir */
 .envelope-flash {
   position: absolute;
-  top: 19%; left: 50%;
+  top: 50%; left: 50%;
   width: 40px; height: 40px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(146,168,209,0.55) 45%, rgba(146,168,209,0) 72%);
@@ -251,13 +257,13 @@ section.alt { background: var(--cream-alt); }
   100% { transform: translate(-50%, -50%) scale(18); opacity: 0; }
 }
 
-/* Selo, colado na ponta da aba (meio na aba, meio na foto), com as
+/* Selo azul no centro, onde as quatro abas se encontram, com as
    iniciais do casal sobrepostas no meio */
 .envelope-seal-cera {
   position: absolute;
-  top: 19%; left: 50%;
-  width: 76px; height: 76px;
-  transform: translate(-50%, -32%);
+  top: 50%; left: 50%;
+  width: 84px; height: 84px;
+  transform: translate(-50%, -50%);
   z-index: 4;
   display: flex;
   align-items: center;
@@ -265,8 +271,8 @@ section.alt { background: var(--cream-alt); }
   filter: drop-shadow(0 6px 10px rgba(20,32,54,0.4));
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
-.envelope-seal-cera:active { transform: translate(-50%, -32%) scale(0.92); }
-.envelope.is-open .envelope-seal-cera { opacity: 0; transform: translate(-50%, -32%) scale(0.5); }
+.envelope-seal-cera:active { transform: translate(-50%, -50%) scale(0.92); }
+.envelope.is-open .envelope-seal-cera { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
 
 .seal-cera-imagem {
   position: absolute;
@@ -280,28 +286,19 @@ section.alt { background: var(--cream-alt); }
   position: relative;
   z-index: 1;
   font-family: 'Great Vibes', cursive;
-  font-size: 1.15rem;
+  font-size: 1.25rem;
   color: var(--gold-dark);
 }
 
-/* Faixa lisa embaixo, com o convite pra tocar */
-.cover-rodape {
-  position: absolute;
-  left: 0; right: 0; bottom: 0;
-  height: 58px;
-  z-index: 2;
-  background: var(--cream);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.3s ease;
-}
-.envelope.is-open .cover-rodape { opacity: 0; }
-
 .envelope-hint {
+  position: absolute;
+  bottom: 8%;
+  left: 6%;
+  right: 6%;
+  z-index: 10;
   pointer-events: none;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.8rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
