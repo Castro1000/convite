@@ -185,41 +185,54 @@ section.alt { background: var(--cream-alt); }
   position: absolute;
   inset: 0;
   cursor: pointer;
-  perspective: 1600px;
 }
 
-/* As duas metades do convite — abrem em 3D, tipo porta dupla de verdade */
-.envelope-half {
+/* As quatro abas do envelope — dobram em X e se abrem cada uma pro seu
+   lado ao tocar, revelando a página real por trás. */
+.envelope-flap4 {
   position: absolute;
-  top: 0; bottom: 0;
-  width: 50%;
-  background: linear-gradient(170deg, var(--white) 0%, var(--cream-alt) 100%);
+  inset: 0;
+  background:
+    url('../images/textura-flores.svg') repeat,
+    linear-gradient(170deg, var(--white) 0%, var(--cream-alt) 100%);
+  background-size: 130px 130px, auto;
   transition: transform 1s cubic-bezier(.6,.05,.15,1) 0.3s;
-  transform-style: preserve-3d;
-  backface-visibility: hidden;
   z-index: 2;
 }
-.envelope-half.left {
-  left: 0;
-  transform-origin: left center;
-  box-shadow: 6px 0 24px rgba(20,32,54,0.18);
-}
-.envelope-half.right {
-  right: 0;
-  transform-origin: right center;
-  box-shadow: -6px 0 24px rgba(20,32,54,0.18);
-}
-.envelope.is-open .envelope-half.left { transform: rotateY(-100deg); }
-.envelope.is-open .envelope-half.right { transform: rotateY(100deg); }
+.envelope-flap4.top    { clip-path: polygon(0 0, 100% 0, 50% 50%); box-shadow: inset 0 -1px 0 rgba(74,106,153,0.25); }
+.envelope-flap4.bottom { clip-path: polygon(0 100%, 100% 100%, 50% 50%); }
+.envelope-flap4.left   { clip-path: polygon(0 0, 0 100%, 50% 50%); }
+.envelope-flap4.right  { clip-path: polygon(100% 0, 100% 100%, 50% 50%); }
 
-/* Clarão que estoura no centro assim que as portas começam a abrir */
+.envelope.is-open .envelope-flap4.top    { transform: translateY(-105%); }
+.envelope.is-open .envelope-flap4.bottom { transform: translateY(105%); }
+.envelope.is-open .envelope-flap4.left   { transform: translateX(-105%); }
+.envelope.is-open .envelope-flap4.right  { transform: translateX(105%); }
+
+/* Linhas finas marcando as quatro dobras, formando um X */
+.envelope-x-creases {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.envelope-x-creases path {
+  fill: none;
+  stroke: rgba(74,106,153,0.32);
+  stroke-width: 0.4;
+  vector-effect: non-scaling-stroke;
+}
+.envelope.is-open .envelope-x-creases { opacity: 0; }
+
+/* Clarão que estoura no centro assim que as abas começam a abrir */
 .envelope-flash {
   position: absolute;
-  top: 42%; left: 50%;
+  top: 50%; left: 50%;
   width: 40px; height: 40px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(146,168,209,0.55) 45%, rgba(146,168,209,0) 72%);
-  z-index: 4;
+  z-index: 5;
   pointer-events: none;
   transform: translate(-50%, -50%) scale(0);
   opacity: 0;
@@ -233,63 +246,44 @@ section.alt { background: var(--cream-alt); }
   100% { transform: translate(-50%, -50%) scale(18); opacity: 0; }
 }
 
-/* Dupla linha fina marcando a dobra central */
-.envelope-seamline {
-  position: absolute;
-  top: 0; bottom: 0;
-  left: 50%;
-  width: 5px;
-  transform: translateX(-50%);
-  z-index: 3;
-  background:
-    linear-gradient(rgba(74,106,153,0.32), rgba(74,106,153,0.32)) left / 1px 100% no-repeat,
-    linear-gradient(rgba(74,106,153,0.32), rgba(74,106,153,0.32)) right / 1px 100% no-repeat;
-  transition: opacity 0.3s ease;
-}
-.envelope.is-open .envelope-seamline { opacity: 0; }
-
-/* Arranjo de flores no centro do convite, com os nomes dentro do arco */
-.envelope-ribbon {
-  position: absolute;
-  top: 42%;
-  left: 0;
-  right: 0;
-  height: 90px;
-  transform: translateY(-50%);
-  z-index: 3;
-}
-.envelope-ribbon:active .bow-imagem { transform: translate(-50%, -42%) scale(0.94); }
-
-.bow-imagem {
+/* Selo de cera no centro, onde as quatro abas se encontram */
+.envelope-seal-cera {
   position: absolute;
   top: 50%; left: 50%;
-  width: 340px; height: 340px;
-  transform: translate(-50%, -42%);
-  z-index: 1;
-  filter: drop-shadow(0 12px 22px rgba(20,32,54,0.35));
-  transition: transform 0.6s cubic-bezier(.5,0,.75,0) 0.05s, opacity 0.5s ease 0.15s;
+  width: 78px; height: 78px;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 32% 28%, var(--gold-light), var(--gold-dark) 80%);
+  box-shadow: 0 8px 18px rgba(20,32,54,0.4), inset 0 2px 4px rgba(255,255,255,0.4), inset 0 -3px 6px rgba(0,0,0,0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 4;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+.envelope-seal-cera:active { transform: translate(-50%, -50%) scale(0.92); }
+.envelope.is-open .envelope-seal-cera { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+
+.seal-cera-texto {
+  font-family: 'Great Vibes', cursive;
+  font-size: 1.35rem;
+  color: var(--cream);
 }
 
 .envelope-names-cover {
   position: absolute;
-  top: 50%; left: 50%;
-  width: 210px;
-  transform: translate(-50%, -42%);
-  z-index: 2;
+  top: 16%;
+  left: 6%; right: 6%;
+  z-index: 4;
   text-align: center;
-  white-space: pre-line;
   font-family: 'Great Vibes', cursive;
-  font-size: 2.15rem;
-  line-height: 1.75;
+  font-size: 1.9rem;
+  line-height: 1.25;
   color: var(--gold-dark);
-  text-shadow: 0 1px 10px rgba(255,255,255,0.85), 0 1px 10px rgba(255,255,255,0.85);
-  transition: opacity 0.4s ease;
+  text-shadow: 0 1px 8px rgba(255,255,255,0.8);
+  transition: opacity 0.3s ease;
 }
 .envelope.is-open .envelope-names-cover { opacity: 0; }
-.envelope.is-open .bow-imagem {
-  transform: translate(-50%, -42%) translateY(160px) rotate(20deg) scale(0.7);
-  opacity: 0;
-}
 
 .envelope-hint {
   position: absolute;
