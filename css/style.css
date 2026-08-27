@@ -195,23 +195,37 @@ section.alt { background: var(--cream-alt); }
   background:
     url('../images/textura-flores.svg') repeat,
     linear-gradient(170deg, var(--white) 0%, var(--cream-alt) 100%);
-  background-size: 130px 130px, auto;
+  background-size: 150px 150px, auto;
   transition: transform 1s cubic-bezier(.6,.05,.15,1) 0.3s;
   z-index: 2;
 }
-/* Sombra suave acompanhando o contorno de cada aba (só o triângulo,
-   já que drop-shadow segue o clip-path) — reforça a sensação de dobra. */
-.envelope-flap4.top    { clip-path: polygon(0 0, 100% 0, 50% 50%);   filter: drop-shadow(0 3px 3px rgba(20,32,54,0.16)); }
-.envelope-flap4.bottom { clip-path: polygon(0 100%, 100% 100%, 50% 50%); filter: drop-shadow(0 -2px 3px rgba(20,32,54,0.1)); }
-.envelope-flap4.left   { clip-path: polygon(0 0, 0 100%, 50% 50%);   filter: drop-shadow(3px 0 3px rgba(20,32,54,0.1)); }
-.envelope-flap4.right  { clip-path: polygon(100% 0, 100% 100%, 50% 50%); filter: drop-shadow(-3px 0 3px rgba(20,32,54,0.1)); }
+/* Cada aba recebe uma sombra na direção certa (acompanhando o clip-path)
+   e um leve tom próprio, pra parecer 4 painéis de papel dobrados de
+   verdade, não um cartão único com um X desenhado por cima. */
+.envelope-flap4.top {
+  clip-path: polygon(0 0, 100% 0, 50% 50%);
+  filter: drop-shadow(0 4px 4px rgba(20,32,54,0.22));
+}
+.envelope-flap4.bottom {
+  clip-path: polygon(0 100%, 100% 100%, 50% 50%);
+  filter: drop-shadow(0 -3px 4px rgba(20,32,54,0.14)) brightness(0.97);
+}
+.envelope-flap4.left {
+  clip-path: polygon(0 0, 0 100%, 50% 50%);
+  filter: drop-shadow(3px 0 4px rgba(20,32,54,0.16)) brightness(0.985);
+}
+.envelope-flap4.right {
+  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
+  filter: drop-shadow(-3px 0 4px rgba(20,32,54,0.16)) brightness(0.985);
+}
 
 .envelope.is-open .envelope-flap4.top    { transform: translateY(-105%); }
 .envelope.is-open .envelope-flap4.bottom { transform: translateY(105%); }
 .envelope.is-open .envelope-flap4.left   { transform: translateX(-105%); }
 .envelope.is-open .envelope-flap4.right  { transform: translateX(105%); }
 
-/* Linhas marcando as quatro dobras, formando um X — bem visíveis */
+/* Linhas marcando as quatro dobras, formando um X — bem visíveis,
+   com uma linha clara ao lado pra parecer o vinco de uma dobra real. */
 .envelope-x-creases {
   position: absolute;
   inset: 0;
@@ -219,11 +233,18 @@ section.alt { background: var(--cream-alt); }
   pointer-events: none;
   transition: opacity 0.3s ease;
 }
-.envelope-x-creases path {
+.envelope-x-creases .vinco-sombra {
   fill: none;
-  stroke: rgba(46,58,76,0.4);
-  stroke-width: 0.9;
+  stroke: rgba(20,32,54,0.55);
+  stroke-width: 1.4;
   vector-effect: non-scaling-stroke;
+}
+.envelope-x-creases .vinco-brilho {
+  fill: none;
+  stroke: rgba(255,255,255,0.65);
+  stroke-width: 0.6;
+  vector-effect: non-scaling-stroke;
+  transform: translate(0.6px, 0.6px);
 }
 .envelope.is-open .envelope-x-creases { opacity: 0; }
 
