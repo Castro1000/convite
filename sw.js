@@ -10,7 +10,7 @@
    assim o navegador sabe que precisa baixar a versão nova.
    ===================================================================== */
 
-const CACHE_VERSAO = "convite-v10";
+const CACHE_VERSAO = "convite-v11";
 
 const ARQUIVOS_PARA_GUARDAR = [
   "./",
@@ -38,7 +38,7 @@ const ARQUIVOS_PARA_GUARDAR = [
   "images/icon-512.png",
   "images/apple-touch-icon.png",
   "images/textura-flores.svg",
-  "images/laco.png",
+  "images/seloazul.png",
   "images/foto1.jpeg",
   "images/foto2.jpeg",
   "images/1.jpeg",
