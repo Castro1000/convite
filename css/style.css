@@ -276,7 +276,7 @@ section.alt { background: var(--cream-alt); }
   position: relative;
   z-index: 1;
   font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
+  font-size: 1.3rem;
   line-height: 1;
   color: var(--gold-dark);
 }
