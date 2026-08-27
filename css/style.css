@@ -188,28 +188,29 @@ section.alt { background: var(--cream-alt); }
   overflow: hidden;
 }
 
-/* Foto do casal, já visível de fundo, cobrindo a tela inteira */
+/* Foto do casal, já visível de fundo (menos uma faixa embaixo, pro
+   texto "toque para abrir" ficar numa área lisa) */
 .cover-foto {
   position: absolute;
-  inset: 0;
+  top: 0; left: 0; right: 0;
+  bottom: 58px;
   z-index: 1;
 }
 .cover-foto img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  /* deixa a foto mais clara/desbotada, tipo estourada de luz */
-  filter: saturate(0.55) brightness(1.18) contrast(0.88) sepia(0.06);
+  object-position: center 18%;
+  /* deixa a foto um pouco mais clara/suave, sem exagerar */
+  filter: saturate(0.85) brightness(1.06) contrast(0.96);
 }
-/* véu claro por cima (efeito desbotado) + escurecida embaixo pro
-   texto branco continuar legível */
+/* véu bem sutil, só pra suavizar, sem escurecer (não tem mais texto
+   sobre a foto agora) */
 .cover-foto::after {
   content: '';
   position: absolute;
   inset: 0;
-  background:
-    linear-gradient(to top, rgba(20,32,54,0.6) 0%, rgba(20,32,54,0.05) 35%, rgba(20,32,54,0) 55%),
-    rgba(255,250,240,0.22);
+  background: rgba(255,250,240,0.1);
 }
 
 /* Aba única no topo, tipo aba de envelope de verdade, com a textura
@@ -217,7 +218,7 @@ section.alt { background: var(--cream-alt); }
 .cover-flap {
   position: absolute;
   top: 0; left: 0; right: 0;
-  height: 42%;
+  height: 19%;
   background:
     url('../images/textura-flores.svg') repeat,
     linear-gradient(170deg, var(--white) 0%, var(--cream-alt) 100%);
@@ -232,7 +233,7 @@ section.alt { background: var(--cream-alt); }
 /* Clarão que estoura no ponto da aba assim que ela começa a levantar */
 .envelope-flash {
   position: absolute;
-  top: 42%; left: 50%;
+  top: 19%; left: 50%;
   width: 40px; height: 40px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(146,168,209,0.55) 45%, rgba(146,168,209,0) 72%);
@@ -250,12 +251,13 @@ section.alt { background: var(--cream-alt); }
   100% { transform: translate(-50%, -50%) scale(18); opacity: 0; }
 }
 
-/* Selo, na ponta da aba, com as iniciais do casal sobrepostas no meio */
+/* Selo, colado na ponta da aba (meio na aba, meio na foto), com as
+   iniciais do casal sobrepostas no meio */
 .envelope-seal-cera {
   position: absolute;
-  top: 42%; left: 50%;
+  top: 19%; left: 50%;
   width: 76px; height: 76px;
-  transform: translate(-50%, -50%);
+  transform: translate(-50%, -32%);
   z-index: 4;
   display: flex;
   align-items: center;
@@ -263,8 +265,8 @@ section.alt { background: var(--cream-alt); }
   filter: drop-shadow(0 6px 10px rgba(20,32,54,0.4));
   transition: opacity 0.35s ease, transform 0.35s ease;
 }
-.envelope-seal-cera:active { transform: translate(-50%, -50%) scale(0.92); }
-.envelope.is-open .envelope-seal-cera { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+.envelope-seal-cera:active { transform: translate(-50%, -32%) scale(0.92); }
+.envelope.is-open .envelope-seal-cera { opacity: 0; transform: translate(-50%, -32%) scale(0.5); }
 
 .seal-cera-imagem {
   position: absolute;
@@ -282,44 +284,28 @@ section.alt { background: var(--cream-alt); }
   color: var(--gold-dark);
 }
 
-/* Nomes em assinatura + frase de convite, sobre a foto */
-.cover-texto {
+/* Faixa lisa embaixo, com o convite pra tocar */
+.cover-rodape {
   position: absolute;
-  left: 6%; right: 6%;
-  bottom: 16%;
+  left: 0; right: 0; bottom: 0;
+  height: 58px;
   z-index: 2;
-  text-align: center;
-  color: var(--white);
+  background: var(--cream);
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: opacity 0.3s ease;
 }
-.envelope.is-open .cover-texto { opacity: 0; }
-.cover-nomes {
-  font-family: 'Great Vibes', cursive;
-  font-size: 2.3rem;
-  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
-}
-.cover-convite {
-  margin-top: 4px;
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.76rem;
-  letter-spacing: 0.06em;
-  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
-}
+.envelope.is-open .cover-rodape { opacity: 0; }
 
 .envelope-hint {
-  position: absolute;
-  bottom: 6%;
-  left: 6%;
-  right: 6%;
-  z-index: 10;
   pointer-events: none;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--white);
-  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+  color: var(--gold-dark);
   text-align: center;
   animation: pulse 2.4s ease-in-out infinite;
 }
