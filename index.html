@@ -35,9 +35,6 @@
       <div class="envelope-flap4 bottom"></div>
       <div class="envelope-flap4 left"></div>
       <div class="envelope-flap4 right"></div>
-      <svg class="envelope-x-creases" viewBox="0 0 100 100" preserveAspectRatio="none">
-        <path d="M0,0 L50,50 M100,0 L50,50 M0,100 L50,50 M100,100 L50,50"/>
-      </svg>
       <div class="envelope-flash"></div>
       <div class="envelope-seal-cera" id="envelope-ribbon">
         <img class="seal-cera-imagem" src="images/seloazul.png" alt="Selo">
@@ -317,10 +314,10 @@
       <p class="pix-modal-titulo" id="pix-modal-titulo">Item</p>
       <p class="pix-modal-valor" id="pix-modal-valor">R$ 0,00</p>
       <div class="pix-qrcode" id="pix-qrcode"></div>
-      <p class="pix-modal-hint">Escaneie o QR Code ou copie o código abaixo no app do seu banco</p>
+      <p class="pix-modal-hint">Escaneie o QR Code ou copie a chave Pix abaixo e cole no app do seu banco</p>
       <div class="pix-copy-box">
-        <textarea id="pix-copy-texto" readonly></textarea>
-        <button id="pix-copy-btn" class="btn btn-solid" type="button">Copiar código Pix</button>
+        <p class="pix-chave-texto" id="pix-copy-texto" data-field="pixKey">009.892.722-14</p>
+        <button id="pix-copy-btn" class="btn btn-solid" type="button">Copiar chave Pix</button>
       </div>
       <p class="copy-feedback" id="pix-feedback"></p>
       <p class="pix-modal-titular">Titular: <span data-field="pixNome">Nome do titular</span></p>

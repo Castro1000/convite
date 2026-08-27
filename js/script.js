@@ -432,24 +432,23 @@ function normalizarChavePix(chave) {
   return (chave || "").trim();
 }
 
-function gerarPayloadPix({ chave, nome, cidade, valor, txid }) {
+// Sem valor fixo no código: assim o mesmo QR/chave serve pra qualquer
+// item da lista, e a pessoa digita o valor que quiser no app do banco.
+function gerarPayloadPix({ chave, nome, cidade }) {
   const nomeSanitizado = removerAcentos(nome).toUpperCase().slice(0, 25);
   const cidadeSanitizada = removerAcentos(cidade).toUpperCase().slice(0, 15);
-  const txidSanitizado = (txid || "***").replace(/[^A-Za-z0-9]/g, "").slice(0, 25) || "***";
 
   const contaPix = tlvPix("00", "BR.GOV.BCB.PIX") + tlvPix("01", normalizarChavePix(chave));
-  const valorFormatado = Number(valor).toFixed(2);
 
   let payload =
     tlvPix("00", "01") +
     tlvPix("26", contaPix) +
     tlvPix("52", "0000") +
     tlvPix("53", "986") +
-    tlvPix("54", valorFormatado) +
     tlvPix("58", "BR") +
     tlvPix("59", nomeSanitizado) +
     tlvPix("60", cidadeSanitizada) +
-    tlvPix("62", tlvPix("05", txidSanitizado));
+    tlvPix("62", tlvPix("05", "***"));
 
   payload += "6304";
   return payload + crc16Pix(payload);
@@ -464,10 +463,16 @@ function configurarPresentes() {
   const tituloEl = document.getElementById("pix-modal-titulo");
   const valorEl = document.getElementById("pix-modal-valor");
   const qrEl = document.getElementById("pix-qrcode");
-  const textoEl = document.getElementById("pix-copy-texto");
   const closeBtn = document.getElementById("pix-modal-close");
   const copyBtn = document.getElementById("pix-copy-btn");
   const feedback = document.getElementById("pix-feedback");
+
+  // Mesma chave Pix pra qualquer item — gera o QR uma única vez.
+  const payloadPix = gerarPayloadPix({
+    chave: WEDDING.pixKey,
+    nome: WEDDING.pixNome,
+    cidade: WEDDING.pixCidade,
+  });
 
   grid.innerHTML = LISTA_PRESENTES.map((item, i) => {
     const ehFoto = /^images\//.test(item.imagem);
@@ -486,18 +491,9 @@ function configurarPresentes() {
     tituloEl.textContent = item.titulo;
     valorEl.textContent = `R$ ${item.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
 
-    const payload = gerarPayloadPix({
-      chave: WEDDING.pixKey,
-      nome: WEDDING.pixNome,
-      cidade: WEDDING.pixCidade,
-      valor: item.valor,
-      txid: item.titulo,
-    });
-    textoEl.value = payload;
-
     qrEl.innerHTML = "";
     const qr = qrcode(0, "M");
-    qr.addData(payload);
+    qr.addData(payloadPix);
     qr.make();
     qrEl.innerHTML = qr.createSvgTag({ scalable: true });
 
@@ -523,16 +519,20 @@ function configurarPresentes() {
   if (copyBtn) {
     copyBtn.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText(textoEl.value);
+        await navigator.clipboard.writeText(WEDDING.pixKey);
       } catch (e) {
         // Fallback para navegadores/contextos sem permissão de clipboard (ex: file://)
-        textoEl.removeAttribute("readonly");
-        textoEl.select();
+        const campo = document.createElement("textarea");
+        campo.value = WEDDING.pixKey;
+        campo.style.position = "fixed";
+        campo.style.opacity = "0";
+        document.body.appendChild(campo);
+        campo.select();
         try { document.execCommand("copy"); } catch (err) { /* ignora */ }
-        textoEl.setAttribute("readonly", "true");
+        document.body.removeChild(campo);
       }
       if (feedback) {
-        feedback.textContent = "Código Pix copiado!";
+        feedback.textContent = "Chave Pix copiada!";
         setTimeout(() => (feedback.textContent = ""), 2200);
       }
     });
