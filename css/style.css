@@ -252,7 +252,7 @@ section.alt { background: var(--cream-alt); }
 .envelope-seal-cera {
   position: absolute;
   top: 50%; left: 50%;
-  width: 128px; height: 128px;
+  width: 168px; height: 168px;
   transform: translate(-50%, -50%);
   z-index: 4;
   display: flex;
@@ -276,9 +276,10 @@ section.alt { background: var(--cream-alt); }
   position: relative;
   z-index: 1;
   font-family: 'Great Vibes', cursive;
-  font-size: 1.3rem;
+  font-size: 1.7rem;
   line-height: 1;
-  color: var(--gold-dark);
+  color: var(--ink);
+  text-shadow: 0 1px 0 rgba(255,255,255,0.65), 0 0 6px rgba(255,255,255,0.5);
 }
 
 .envelope-hint {
