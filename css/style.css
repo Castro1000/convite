@@ -198,13 +198,18 @@ section.alt { background: var(--cream-alt); }
   width: 100%;
   height: 100%;
   object-fit: cover;
+  /* deixa a foto mais clara/desbotada, tipo estourada de luz */
+  filter: saturate(0.55) brightness(1.18) contrast(0.88) sepia(0.06);
 }
-/* leve escurecida embaixo, pra dar contraste ao nome/texto em branco */
+/* véu claro por cima (efeito desbotado) + escurecida embaixo pro
+   texto branco continuar legível */
 .cover-foto::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(20,32,54,0.55) 0%, rgba(20,32,54,0.05) 35%, rgba(20,32,54,0) 55%);
+  background:
+    linear-gradient(to top, rgba(20,32,54,0.6) 0%, rgba(20,32,54,0.05) 35%, rgba(20,32,54,0) 55%),
+    rgba(255,250,240,0.22);
 }
 
 /* Aba única no topo, tipo aba de envelope de verdade, com a textura
