@@ -128,6 +128,10 @@ function iniciais(nome) {
   return (nome || "?").trim().charAt(0).toUpperCase() || "?";
 }
 
+function primeiroNome(nome) {
+  return (nome || "").trim().split(/\s+/)[0] || "";
+}
+
 // Nomes em WEDDING vêm em CAIXA ALTA; em fonte script (cursiva) texto
 // todo maiúsculo fica ilegível, então aqui geramos uma versão "Título
 // Case" só para exibir nos lugares com fonte script (ex: hero-names).
@@ -147,6 +151,7 @@ function popularCampos() {
     noivo: WEDDING.noivo,
     noivaTitulo: paraTituloCase(WEDDING.noiva),
     noivoTitulo: paraTituloCase(WEDDING.noivo),
+    envelopeNomesCurto: `${paraTituloCase(primeiroNome(WEDDING.noiva))} & ${paraTituloCase(primeiroNome(WEDDING.noivo))}`,
     monogram: monograma,
     dataExtenso: formatarDataExtenso(weddingDate),
     diaSemanaHora: formatarDiaHora(weddingDate),
@@ -236,7 +241,7 @@ function configurarEnvelope() {
       return;
     }
 
-    setTimeout(revelarPagina, 1350);
+    setTimeout(revelarPagina, 1150);
   }
 
   envelope.addEventListener("click", abrir);

@@ -185,73 +185,49 @@ section.alt { background: var(--cream-alt); }
   position: absolute;
   inset: 0;
   cursor: pointer;
+  overflow: hidden;
 }
 
-/* As quatro abas do envelope — dobram em X e se abrem cada uma pro seu
-   lado ao tocar, revelando a página real por trás. */
-.envelope-flap4 {
+/* Foto do casal, já visível de fundo, cobrindo a tela inteira */
+.cover-foto {
   position: absolute;
   inset: 0;
+  z-index: 1;
+}
+.cover-foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+/* leve escurecida embaixo, pra dar contraste ao nome/texto em branco */
+.cover-foto::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(20,32,54,0.55) 0%, rgba(20,32,54,0.05) 35%, rgba(20,32,54,0) 55%);
+}
+
+/* Aba única no topo, tipo aba de envelope de verdade, com a textura
+   floral — se levanta e some ao tocar. */
+.cover-flap {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 42%;
   background:
     url('../images/textura-flores.svg') repeat,
     linear-gradient(170deg, var(--white) 0%, var(--cream-alt) 100%);
   background-size: 150px 150px, auto;
-  transition: transform 1s cubic-bezier(.6,.05,.15,1) 0.3s;
-  z-index: 2;
-}
-/* Cada aba recebe uma sombra na direção certa (acompanhando o clip-path)
-   e um leve tom próprio, pra parecer 4 painéis de papel dobrados de
-   verdade, não um cartão único com um X desenhado por cima. */
-.envelope-flap4.top {
-  clip-path: polygon(0 0, 100% 0, 50% 50%);
-  filter: drop-shadow(0 4px 4px rgba(20,32,54,0.22));
-}
-.envelope-flap4.bottom {
-  clip-path: polygon(0 100%, 100% 100%, 50% 50%);
-  filter: drop-shadow(0 -3px 4px rgba(20,32,54,0.14)) brightness(0.97);
-}
-.envelope-flap4.left {
-  clip-path: polygon(0 0, 0 100%, 50% 50%);
-  filter: drop-shadow(3px 0 4px rgba(20,32,54,0.16)) brightness(0.985);
-}
-.envelope-flap4.right {
-  clip-path: polygon(100% 0, 100% 100%, 50% 50%);
-  filter: drop-shadow(-3px 0 4px rgba(20,32,54,0.16)) brightness(0.985);
-}
-
-.envelope.is-open .envelope-flap4.top    { transform: translateY(-105%); }
-.envelope.is-open .envelope-flap4.bottom { transform: translateY(105%); }
-.envelope.is-open .envelope-flap4.left   { transform: translateX(-105%); }
-.envelope.is-open .envelope-flap4.right  { transform: translateX(105%); }
-
-/* Linhas marcando as quatro dobras, formando um X — bem visíveis,
-   com uma linha clara ao lado pra parecer o vinco de uma dobra real. */
-.envelope-x-creases {
-  position: absolute;
-  inset: 0;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  filter: drop-shadow(0 10px 16px rgba(20,32,54,0.35));
   z-index: 3;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
+  transition: transform 0.9s cubic-bezier(.6,.05,.15,1) 0.2s, opacity 0.5s ease 0.2s;
 }
-.envelope-x-creases .vinco-sombra {
-  fill: none;
-  stroke: rgba(20,32,54,0.55);
-  stroke-width: 1.4;
-  vector-effect: non-scaling-stroke;
-}
-.envelope-x-creases .vinco-brilho {
-  fill: none;
-  stroke: rgba(255,255,255,0.65);
-  stroke-width: 0.6;
-  vector-effect: non-scaling-stroke;
-  transform: translate(0.6px, 0.6px);
-}
-.envelope.is-open .envelope-x-creases { opacity: 0; }
+.envelope.is-open .cover-flap { transform: translateY(-115%); opacity: 0; }
 
-/* Clarão que estoura no centro assim que as abas começam a abrir */
+/* Clarão que estoura no ponto da aba assim que ela começa a levantar */
 .envelope-flash {
   position: absolute;
-  top: 50%; left: 50%;
+  top: 42%; left: 50%;
   width: 40px; height: 40px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(146,168,209,0.55) 45%, rgba(146,168,209,0) 72%);
@@ -269,12 +245,11 @@ section.alt { background: var(--cream-alt); }
   100% { transform: translate(-50%, -50%) scale(18); opacity: 0; }
 }
 
-/* Selo (foto) no centro, onde as quatro abas se encontram, com as
-   iniciais do casal sobrepostas no meio */
+/* Selo, na ponta da aba, com as iniciais do casal sobrepostas no meio */
 .envelope-seal-cera {
   position: absolute;
-  top: 50%; left: 50%;
-  width: 92px; height: 92px;
+  top: 42%; left: 50%;
+  width: 76px; height: 76px;
   transform: translate(-50%, -50%);
   z-index: 4;
   display: flex;
@@ -298,23 +273,48 @@ section.alt { background: var(--cream-alt); }
   position: relative;
   z-index: 1;
   font-family: 'Great Vibes', cursive;
-  font-size: 1.3rem;
+  font-size: 1.15rem;
   color: var(--gold-dark);
+}
+
+/* Nomes em assinatura + frase de convite, sobre a foto */
+.cover-texto {
+  position: absolute;
+  left: 6%; right: 6%;
+  bottom: 16%;
+  z-index: 2;
+  text-align: center;
+  color: var(--white);
+  transition: opacity 0.3s ease;
+}
+.envelope.is-open .cover-texto { opacity: 0; }
+.cover-nomes {
+  font-family: 'Great Vibes', cursive;
+  font-size: 2.3rem;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.45);
+}
+.cover-convite {
+  margin-top: 4px;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.76rem;
+  letter-spacing: 0.06em;
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
 }
 
 .envelope-hint {
   position: absolute;
-  top: calc(42% + 210px);
+  bottom: 6%;
   left: 6%;
   right: 6%;
   z-index: 10;
   pointer-events: none;
   font-family: 'Montserrat', sans-serif;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--gold-dark);
+  color: var(--white);
+  text-shadow: 0 1px 8px rgba(0,0,0,0.5);
   text-align: center;
   animation: pulse 2.4s ease-in-out infinite;
 }
