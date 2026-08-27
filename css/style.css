@@ -280,11 +280,13 @@ section.alt { background: var(--cream-alt); }
   position: relative;
   z-index: 1;
   font-family: 'Great Vibes', cursive;
-  font-size: 1.35rem;
+  font-size: 1.50rem;
   letter-spacing: -0.01em;
   line-height: 1;
   color: var(--ink);
   text-shadow: 0 1px 0 rgba(255,255,255,0.65), 0 0 6px rgba(255,255,255,0.5);
+  left: -4px;
+  top: 2px;
 }
 
 .envelope-hint {
