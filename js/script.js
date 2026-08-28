@@ -71,9 +71,9 @@ const WEDDING = {
   },
 
   recepcao: {
-    horario: "21h00",
-    local: "Centro Social Dom José Afonso Ribeiro",
-    endereco: "R. Floriano Peixoto - Centro, Borba - AM",
+    horario: "Após a celebração",
+    local: "Local a definir",
+    endereco: "Borba - AM",
   },
 
   // WhatsApp para confirmação de presença.
