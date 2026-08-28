@@ -10,7 +10,7 @@
    assim o navegador sabe que precisa baixar a versão nova.
    ===================================================================== */
 
-const CACHE_VERSAO = "convite-v24";
+const CACHE_VERSAO = "convite-v25";
 
 // Página, estilo e script: sempre busca a versão mais nova na rede
 // primeiro (só usa a cópia salva se estiver sem internet). É o que
@@ -45,7 +45,7 @@ const ARQUIVOS_PARA_GUARDAR = [
   "images/icon-192.png",
   "images/icon-512.png",
   "images/apple-touch-icon.png",
-  "images/seloazul.png",
+  "images/convite-fundo.png",
   "images/foto1.jpeg",
   "images/foto2.jpeg",
   "images/1.jpeg",

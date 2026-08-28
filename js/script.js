@@ -262,7 +262,7 @@ function configurarEnvelope() {
       return;
     }
 
-    setTimeout(revelarPagina, 1350);
+    setTimeout(revelarPagina, 1200);
   }
 
   envelope.addEventListener("click", abrir);
