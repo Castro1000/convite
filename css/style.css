@@ -1146,13 +1146,13 @@ footer {
   margin-bottom: 40px;
 }
 footer .foot-vaso {
-  width: 84px;
+  width: 100px;
   height: auto;
-  margin: 0 auto 6px;
+  margin: 0 auto 25px;
 }
 footer .foot-monogram {
   font-family: 'Great Vibes', cursive;
-  font-size: 2rem;
+  font-size: 3rem;
   color: var(--gold-dark);
   margin-bottom: 8px;
 }
