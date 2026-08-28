@@ -187,11 +187,13 @@ section.alt { background: var(--cream-alt); }
   cursor: pointer;
   overflow: hidden;
   background: var(--cream);
+  perspective: 900px;
 }
 
 /* Capa do convite: uma única imagem (fundo floral + envelope + selo,
-   tudo já pronto na arte) preenchendo a tela inteira. Ao tocar, ela
-   desaparece com um leve zoom, junto com um clarão saindo do selo,
+   tudo já pronto na arte) preenchendo a tela inteira. Ao tocar, o
+   selo quebra e sai girando primeiro, e só depois a capa inteira
+   tomba pra trás e desmancha (com um leve desfoque de saída),
    revelando a página por trás. */
 .envelope-capa {
   position: absolute;
@@ -200,17 +202,66 @@ section.alt { background: var(--cream-alt); }
   height: 100%;
   object-fit: cover;
   object-position: center;
-  transition: opacity 0.7s ease 0.15s, transform 0.9s cubic-bezier(.6,.05,.15,1) 0.15s;
+  z-index: 1;
+  transform-origin: 50% 78%;
+  transition:
+    opacity 0.85s ease 0.28s,
+    transform 0.95s cubic-bezier(.6,.05,.2,1) 0.28s,
+    filter 0.95s ease 0.28s;
 }
 .envelope.is-open .envelope-capa {
   opacity: 0;
-  transform: scale(1.06);
+  transform: scale(1.08) rotateX(-16deg) translateY(-2%);
+  filter: blur(4px);
+}
+
+/* Onda de impacto que estoura no exato ponto do selo assim que toca */
+.envelope-onda {
+  position: absolute;
+  top: 58.8%; left: 49.7%;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  border: 2px solid rgba(75,106,153,0.6);
+  z-index: 2;
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.3);
+  opacity: 0;
+}
+.envelope.is-open .envelope-onda {
+  animation: onda-expande 0.65s cubic-bezier(.2,.7,.4,1) 0.02s forwards;
+}
+@keyframes onda-expande {
+  0%   { transform: translate(-50%, -50%) scale(0.3); opacity: 0.9; }
+  100% { transform: translate(-50%, -50%) scale(10); opacity: 0; border-width: 0.5px; }
+}
+
+/* O selo de verdade (recortado, sem fundo) sentado exatamente em cima
+   do selo desenhado na capa — parado, é indistinguível dele. Ao
+   abrir, quebra: treme, gira e voa pra fora enquanto encolhe. */
+.envelope-selo-solto {
+  position: absolute;
+  top: 58.8%; left: 49.7%;
+  width: 20%; height: 9.8%;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 6px rgba(20,32,54,0.35));
+}
+.envelope.is-open .envelope-selo-solto {
+  animation: selo-quebra 1.05s cubic-bezier(.3,1.3,.4,1) 0.02s forwards;
+}
+@keyframes selo-quebra {
+  0%   { transform: translate(-50%, -50%) rotate(0deg) scale(1); opacity: 1; }
+  16%  { transform: translate(-50%, -50%) rotate(-14deg) scale(1.14); }
+  34%  { transform: translate(-50%, -50%) rotate(16deg) scale(0.96); }
+  58%  { transform: translate(-55%, -85%) rotate(110deg) scale(0.55); opacity: 1; }
+  100% { transform: translate(-62%, -170%) rotate(340deg) scale(0.1); opacity: 0; }
 }
 
 /* Clarão que estoura bem em cima do selo, no ponto certo da imagem */
 .envelope-flash {
   position: absolute;
-  top: 58.5%; left: 50%;
+  top: 58.8%; left: 49.7%;
   width: 40px; height: 40px;
   border-radius: 50%;
   background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(146,168,209,0.55) 45%, rgba(146,168,209,0) 72%);
@@ -220,7 +271,7 @@ section.alt { background: var(--cream-alt); }
   opacity: 0;
 }
 .envelope.is-open .envelope-flash {
-  animation: clarao-estoura 1s ease-out 0.15s forwards;
+  animation: clarao-estoura 0.9s ease-out 0.08s forwards;
 }
 @keyframes clarao-estoura {
   0%   { transform: translate(-50%, -50%) scale(0); opacity: 0; }
@@ -245,7 +296,7 @@ section.alt { background: var(--cream-alt); }
   animation: pulse 2.4s ease-in-out infinite;
   transition: opacity 0.4s ease;
 }
-.envelope.is-open .envelope-hint { opacity: 0; }
+.envelope.is-open .envelope-hint { opacity: 0; animation: none; }
 @keyframes pulse { 0%,100%{opacity:.55;} 50%{opacity:1;} }
 
 /* =========================================================
