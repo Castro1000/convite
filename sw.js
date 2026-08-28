@@ -10,15 +10,23 @@
    assim o navegador sabe que precisa baixar a versão nova.
    ===================================================================== */
 
-const CACHE_VERSAO = "convite-v23";
+const CACHE_VERSAO = "convite-v24";
 
-const ARQUIVOS_PARA_GUARDAR = [
+// Página, estilo e script: sempre busca a versão mais nova na rede
+// primeiro (só usa a cópia salva se estiver sem internet). É o que
+// garante que uma atualização publicada apareça na hora no celular,
+// sem precisar recarregar a página várias vezes.
+const ARQUIVOS_SEMPRE_NOVOS = [
   "./",
   "index.html",
   "manifest.webmanifest",
   "css/style.css",
   "js/script.js",
   "js/qrcode.js",
+];
+
+const ARQUIVOS_PARA_GUARDAR = [
+  ...ARQUIVOS_SEMPRE_NOVOS,
 
   "fonts/great-vibes-400.woff2",
   "fonts/montserrat-300.woff2",
@@ -81,11 +89,32 @@ self.addEventListener("activate", (evento) => {
   self.clients.claim();
 });
 
-// Estratégia: tenta o cache primeiro (abre na hora, funciona offline);
-// se não tiver, busca na rede e guarda uma cópia pra próxima vez.
+function ehArquivoSempreNovo(request) {
+  if (request.mode === "navigate") return true;
+  const caminho = new URL(request.url).pathname.replace(/^\//, "");
+  return ARQUIVOS_SEMPRE_NOVOS.some((arq) => arq === caminho || (arq === "./" && caminho === ""));
+}
+
 self.addEventListener("fetch", (evento) => {
   if (evento.request.method !== "GET") return;
 
+  // Página/CSS/JS: rede primeiro, cache só como reserva pra quando
+  // não tiver internet.
+  if (ehArquivoSempreNovo(evento.request)) {
+    evento.respondWith(
+      fetch(evento.request)
+        .then((respostaDaRede) => {
+          const copia = respostaDaRede.clone();
+          caches.open(CACHE_VERSAO).then((cache) => cache.put(evento.request, copia));
+          return respostaDaRede;
+        })
+        .catch(() => caches.match(evento.request, { ignoreSearch: true }))
+    );
+    return;
+  }
+
+  // Fotos, fontes, áudio e vídeo: cache primeiro (abre na hora, funciona
+  // offline); se não tiver, busca na rede e guarda uma cópia pra próxima vez.
   evento.respondWith(
     caches.match(evento.request, { ignoreSearch: true }).then((respostaEmCache) => {
       if (respostaEmCache) return respostaEmCache;

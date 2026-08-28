@@ -21,10 +21,31 @@ window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 
 // Registra o service worker que guarda o site em cache — depois do
 // primeiro acesso, o convite continua abrindo mesmo sem internet.
+// Também garante que uma atualização publicada apareça sozinha, sem
+// precisar recarregar a página várias vezes: assim que o novo
+// service worker assume, a página recarrega automaticamente.
 if ("serviceWorker" in navigator) {
   window.addEventListener("load", () => {
-    navigator.serviceWorker.register("sw.js").catch(() => {
-      /* navegador sem suporte ou bloqueado — o site continua funcionando normalmente online */
+    navigator.serviceWorker
+      .register("sw.js")
+      .then((registro) => {
+        // Verifica na hora se já existe uma versão mais nova publicada.
+        registro.update().catch(() => {});
+        // E confere de novo sempre que a pessoa volta pra essa aba
+        // (ex: trocou de app e voltou).
+        document.addEventListener("visibilitychange", () => {
+          if (document.visibilityState === "visible") registro.update().catch(() => {});
+        });
+      })
+      .catch(() => {
+        /* navegador sem suporte ou bloqueado — o site continua funcionando normalmente online */
+      });
+
+    let jaRecarregou = false;
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
+      if (jaRecarregou) return;
+      jaRecarregou = true;
+      window.location.reload();
     });
   });
 }
