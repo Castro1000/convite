@@ -303,7 +303,7 @@
     <div class="container center">
       <p class="eyebrow">Com carinho (e bom humor)</p>
       <h2 class="section-title">Lista de presentes</h2>
-      <p class="section-lead">A maior alegria é ter você com a gente nesse dia. Se quiser nos ajudar com um presente, aqui vai um cardápio bem sincero de sugestões — é só tocar num item pra abrir o Pix já pronto.</p>
+      <p class="section-lead">A maior alegria é ter você com a gente nesse dia. Se quiser nos ajudar com um presente, aqui vai um cardápio bem sincero de sugestões — é só tocar num item para abrir o Pix já pronto.</p>
 
       <div class="gift-grid" id="gift-grid"></div>
 
@@ -318,13 +318,19 @@
       <p class="pix-modal-titulo" id="pix-modal-titulo">Item</p>
       <p class="pix-modal-valor" id="pix-modal-valor">R$ 0,00</p>
       <div class="pix-qrcode" id="pix-qrcode"></div>
-      <p class="pix-modal-hint">Escaneie o QR Code ou copie o código Pix abaixo — o valor já vem preenchido</p>
+      <p class="pix-modal-hint" id="pix-modal-hint">Escaneie o QR Code ou copie o código Pix abaixo — o valor já vem preenchido</p>
       <div class="pix-copy-box">
         <p class="pix-chave-label">Chave Pix</p>
         <p class="pix-chave-texto" id="pix-copy-texto" data-field="pixKey">009.892.722-14</p>
         <button id="pix-copy-btn" class="btn btn-solid" type="button">Copiar código Pix</button>
       </div>
       <p class="copy-feedback" id="pix-feedback"></p>
+
+      <a href="#" id="pix-avisar-whatsapp" class="btn btn-whatsapp" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.4-5.9c-.2-.1-1.4-.7-1.7-.8-.2-.1-.4-.1-.6.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-.2-.1-1-.4-1.9-1.2-.7-.6-1.2-1.4-1.3-1.6-.1-.2 0-.4.1-.5.1-.1.2-.3.4-.4.1-.1.2-.2.2-.4.1-.1 0-.3 0-.4-.1-.1-.6-1.4-.8-1.9-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 4 3.4.6.2 1 .4 1.3.5.6.2 1.1.2 1.5.1.5-.1 1.4-.6 1.6-1.1.2-.5.2-.9.1-1.1-.1-.1-.2-.2-.4-.3z"/></svg>
+        Já fiz o Pix, avisar no WhatsApp
+      </a>
+
       <p class="pix-modal-titular">Titular: <span data-field="pixNome">Nome do titular</span></p>
     </div>
   </div>

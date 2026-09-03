@@ -1149,6 +1149,7 @@ button.quick-action {
   margin: 0 0 10px;
 }
 .pix-copy-box .btn { width: 100%; }
+#pix-avisar-whatsapp { width: 100%; margin-top: 4px; }
 .pix-modal-titular {
   font-size: 0.78rem;
   color: var(--ink-soft);

@@ -100,16 +100,16 @@ const WEDDING = {
    detecta e mostra a foto no lugar do emoji.
    ----------------------------------------------------------------- */
 const LISTA_PRESENTES = [
-  { titulo: "Alvará pra roubar docinhos", valor: 50, imagem: "images/meme1.jpg" },
-  { titulo: "Ajuda pra lua de mel", valor: 75, imagem: "images/meme4.jpg" },
-  { titulo: "Cobertor pra noiva que está sempre coberta de razão", valor: 100, imagem: "images/meme3.jpg" },
-  { titulo: "Cota pra comer e falar mal da festa", valor: 125, imagem: "images/meme2.jpg" },
-  { titulo: "Primeiro lugar da fila do buffet", valor: 150, imagem: "images/meme5.jpg" },
-  { titulo: "Calmantes pro noivo continuar aguentando a noiva", valor: 175, imagem: "images/meme6.jpg" },
-  { titulo: "Maquiagem pra noiva ficar linda", valor: 200, imagem: "images/meme7.jpg" },
-  { titulo: "De coração, qualquer valor", valor: 250, imagem: "images/meme8.jpg" },
-  { titulo: "Levar alguém que não foi convidado", valor: 500, imagem: "images/meme9.jpg" },
-  { titulo: "Resto do ano de manicure pra noiva", valor: 1000, imagem: "images/meme10.jpg" },
+  { titulo: "Cerveja de consolo para o noivo", valor: 100, imagem: "images/meme1.jpg" },
+  { titulo: "Ajuda pra lua de mel", valor: 150, imagem: "images/meme4.jpg" },
+  { titulo: "Curso básico de culinária para não morrer de fome", valor: 200, imagem: "images/meme3.jpg" },
+  { titulo: "Patrocínio oficial da vida de homem mandado", valor: 250, imagem: "images/meme2.jpg" },
+  { titulo: "Cota pra comer e falar mal da festa", valor: 300, imagem: "images/meme5.jpg" },
+  { titulo: "Alvará pra roubar docinhos", valor: 350, imagem: "images/meme6.jpg" },
+  { titulo: "Maquiagem pra noiva ficar linda", valor: 400, imagem: "images/meme7.jpg" },
+  { titulo: "De coração, qualquer valor", valor: 250, valorLivre: true, imagem: "images/meme8.jpg" },
+  { titulo: "Investimento no futuro de vocês porque a gente ama muito!", valor: 500, imagem: "images/meme9.jpg" },
+  { titulo: "Levar alguém que não foi convidado", valor: 1000, imagem: "images/meme10.jpg" },
 ];
 
 /* ===================================================================
@@ -454,21 +454,23 @@ function normalizarChavePix(chave) {
 }
 
 // Gera o código com o valor do item já preenchido, pra quem escaneia
-// ou cola o código no banco não precisar digitar nada.
+// ou cola o código no banco não precisar digitar nada. Se "valor" não
+// for passado (presente de valor livre), o campo do valor fica de
+// fora do código — a pessoa digita o quanto quiser no app do banco.
 function gerarPayloadPix({ chave, nome, cidade, valor, txid }) {
   const nomeSanitizado = removerAcentos(nome).toUpperCase().slice(0, 25);
   const cidadeSanitizada = removerAcentos(cidade).toUpperCase().slice(0, 15);
   const txidSanitizado = (txid || "***").replace(/[^A-Za-z0-9]/g, "").slice(0, 25) || "***";
 
   const contaPix = tlvPix("00", "BR.GOV.BCB.PIX") + tlvPix("01", normalizarChavePix(chave));
-  const valorFormatado = Number(valor).toFixed(2);
+  const campoValor = valor != null ? tlvPix("54", Number(valor).toFixed(2)) : "";
 
   let payload =
     tlvPix("00", "01") +
     tlvPix("26", contaPix) +
     tlvPix("52", "0000") +
     tlvPix("53", "986") +
-    tlvPix("54", valorFormatado) +
+    campoValor +
     tlvPix("58", "BR") +
     tlvPix("59", nomeSanitizado) +
     tlvPix("60", cidadeSanitizada) +
@@ -486,39 +488,59 @@ function configurarPresentes() {
 
   const tituloEl = document.getElementById("pix-modal-titulo");
   const valorEl = document.getElementById("pix-modal-valor");
+  const hintEl = document.getElementById("pix-modal-hint");
   const qrEl = document.getElementById("pix-qrcode");
   const closeBtn = document.getElementById("pix-modal-close");
   const copyBtn = document.getElementById("pix-copy-btn");
   const feedback = document.getElementById("pix-feedback");
+  const avisarBtn = document.getElementById("pix-avisar-whatsapp");
 
   // Payload do item aberto no momento — atualizado a cada clique, com
   // o valor daquele presente já embutido no código.
   let payloadAtual = "";
+  let itemAtualLivre = false;
 
   grid.innerHTML = LISTA_PRESENTES.map((item, i) => {
     const ehFoto = /^images\//.test(item.imagem);
     const media = ehFoto
       ? `<img src="${item.imagem}" alt="${item.titulo}">`
       : `<span class="gift-emoji">${item.imagem}</span>`;
+    const valorTexto = item.valorLivre
+      ? "Você escolhe o valor"
+      : `R$ ${item.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
     return `
       <button type="button" class="gift-item fade-up" data-index="${i}">
         <span class="gift-item-media">${media}</span>
         <span class="gift-item-titulo">${item.titulo}</span>
-        <span class="gift-item-valor">R$ ${item.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}</span>
+        <span class="gift-item-valor">${valorTexto}</span>
       </button>`;
   }).join("");
 
   function abrirModal(item) {
+    itemAtualLivre = !!item.valorLivre;
     tituloEl.textContent = item.titulo;
-    valorEl.textContent = `R$ ${item.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
+    valorEl.textContent = item.valorLivre
+      ? "Você escolhe o valor 💙"
+      : `R$ ${item.valor.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
 
     payloadAtual = gerarPayloadPix({
       chave: WEDDING.pixKey,
       nome: WEDDING.pixNome,
       cidade: WEDDING.pixCidade,
-      valor: item.valor,
+      valor: item.valorLivre ? null : item.valor,
       txid: item.titulo,
     });
+
+    if (hintEl) {
+      hintEl.textContent = item.valorLivre
+        ? "Escaneie o QR Code ou copie o código Pix abaixo e digite o valor que quiser no seu banco"
+        : "Escaneie o QR Code ou copie o código Pix abaixo — o valor já vem preenchido";
+    }
+
+    if (avisarBtn) {
+      const mensagem = `Oi! Acabei de fazer o Pix do presente "${item.titulo}" 💙`;
+      avisarBtn.href = `https://wa.me/${WEDDING.whatsapp}?text=${encodeURIComponent(mensagem)}`;
+    }
 
     qrEl.innerHTML = "";
     const qr = qrcode(0, "M");
@@ -562,7 +584,9 @@ function configurarPresentes() {
         document.body.removeChild(campo);
       }
       if (feedback) {
-        feedback.textContent = "Código Pix copiado, com o valor já preenchido!";
+        feedback.textContent = itemAtualLivre
+          ? "Código Pix copiado — cole no seu banco e digite o valor!"
+          : "Código Pix copiado, com o valor já preenchido!";
         setTimeout(() => (feedback.textContent = ""), 2600);
       }
     });
