@@ -100,16 +100,16 @@ const WEDDING = {
    detecta e mostra a foto no lugar do emoji.
    ----------------------------------------------------------------- */
 const LISTA_PRESENTES = [
-  { titulo: "Cerveja de consolo para o noivo", valor: 50, imagem: "images/cerveja.gif" },
-  { titulo: "Ajuda pra lua de mel", valor: 100, imagem: "images/creuza.gif" },
-  { titulo: "Curso básico de culinária para não morrer de fome", valor: 200, imagem: "images/macacodesconfiado.gif" },
-  { titulo: "Patrocínio oficial da vida de homem mandado", valor: 250, imagem: "images/homemdancando.gif" },
+  { titulo: "Só pra dizer que nao dei nada", valor: 50, imagem: "images/5reais.jpeg" },
+  { titulo: "Cerveja de consolo para o noivo", valor: 100, imagem: "images/cerveja.gif" },
+  { titulo: "Ajuda para lua de mel", valor: 200, imagem: "images/creuza.gif" },
+  { titulo: "Primeiro jantar dos noivos", valor: 250, imagem: "images/homemdancando.gif" },
   { titulo: "Cota pra comer e falar mal da festa hahahah", valor: 300, imagem: "images/velha.gif" },
   { titulo: "Alvará pra roubar docinhos", valor: 350, imagem: "images/alvara.gif" },
   { titulo: "Maquiagem para a noiva ficar linda", valor: 400, imagem: "images/maquiagem.gif" },
   { titulo: "De coração, qualquer valor", valor: 250, valorLivre: true, imagem: "images/caozinho.gif" },
   { titulo: "Investimento pesado na felicidade do nosso casal preferido", valor: 500, imagem: "images/gatosdancando.gif" },
-  { titulo: "Investimento no futuro de vocês porque a gente ama muito!", valor: 1000, imagem: "images/casal.gif" },
+  { titulo: "Jesus tocou no meu coração, receba!", valor: 1000, imagem: "images/casal.gif" },
 ];
 
 /* ===================================================================
