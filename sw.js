@@ -10,7 +10,7 @@
    assim o navegador sabe que precisa baixar a versão nova.
    ===================================================================== */
 
-const CACHE_VERSAO = "convite-v29";
+const CACHE_VERSAO = "convite-v30";
 
 // Página, estilo e script: sempre busca a versão mais nova na rede
 // primeiro (só usa a cópia salva se estiver sem internet). É o que

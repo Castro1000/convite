@@ -48,8 +48,8 @@
       <ul class="nav-links">
         <li><a href="#evento">Cerimônia</a></li>
         <li><a href="#galeria">Galeria</a></li>
-        <li><a href="#presentes">Presentes</a></li>
-        <li><a href="#rsvp">Confirmar</a></li>
+        <li><a href="#presentes" data-preview-secao="presentes">Presentes</a></li>
+        <li><a href="#rsvp" data-preview-secao="rsvp">Confirmar</a></li>
       </ul>
     </div>
   </nav>
@@ -117,19 +117,21 @@
           </span>
           <span class="quick-action-label">Local</span>
         </button>
-        <a href="#rsvp" class="quick-action">
+        <a href="#rsvp" class="quick-action" data-preview-secao="rsvp">
           <span class="quick-action-circle">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.4"/><path d="M15.5 13c2.6.4 4.5 2.6 4.5 5.4"/></svg>
           </span>
           <span class="quick-action-label">Confirmar presença</span>
         </a>
-        <a href="#presentes" class="quick-action">
+        <a href="#presentes" class="quick-action" data-preview-secao="presentes">
           <span class="quick-action-circle">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3"><path d="M12 21s-7-4.4-9.5-8.6C.8 9 2 5.5 5.3 4.7 7.6 4.2 9.8 5.3 12 7.8c2.2-2.5 4.4-3.6 6.7-3.1 3.3.8 4.5 4.3 2.8 7.7C19 16.6 12 21 12 21z"/></svg>
           </span>
           <span class="quick-action-label">Presentes</span>
         </a>
       </div>
+
+      <div class="scroll-cue"><span class="line"></span>role para baixo</div>
     </div>
   </section>
 
@@ -240,7 +242,7 @@
       <h2 class="section-title">Padrinhos &amp; Madrinhas</h2>
       <div class="sponsors-grid">
         <div class="fade-up"><div class="sponsor-initial">A</div><p class="name">José Roberto de Oliveira</p><p class="role">Padrinho</p></div>
-        <div class="fade-up"><div class="sponsor-initial">B</div><p class="name">Regiane Leal</p><p class="role">Madrinha</p></div>
+        <div class="fade-up"><div class="sponsor-initial">B</div><p class="name">Regianne Leal</p><p class="role">Madrinha</p></div>
         <div class="fade-up"><div class="sponsor-initial">C</div><p class="name">José Sampaio</p><p class="role">Padrinho</p></div>
         <div class="fade-up"><div class="sponsor-initial">D</div><p class="name">Rosami Moreira</p><p class="role">Madrinha</p></div>
       </div>
@@ -265,6 +267,8 @@
         <div class="gallery-item"><img src="images/5.jpeg" alt="Ingrid e Ivaney"></div>
         <div class="gallery-item"><img src="images/6.jpeg" alt="Ingrid e Ivaney"></div>
       </div>
+
+      <div class="scroll-cue"><span class="line"></span>role para baixo</div>
     </div>
   </section>
 
@@ -347,6 +351,15 @@
     <span id="video-modal-close">&times;</span>
     <p class="video-modal-label">Basílica de Santo Antônio</p>
     <video id="video-local" src="video/video.mp4" playsinline muted></video>
+  </div>
+
+  <!-- Modal de "prévia" — abre ao clicar em "Confirmar presença" ou
+       "Presentes" no menu/atalhos, mostrando a seção real (a mesma
+       que está mais abaixo na página) sem pular todo o conteúdo do
+       meio. Ao fechar, a página continua exatamente de onde estava. -->
+  <div id="secao-modal">
+    <button id="secao-modal-close" type="button">Fechar <span aria-hidden="true">&times;</span></button>
+    <div id="secao-modal-conteudo"></div>
   </div>
 
   <button id="back-to-top" aria-label="Voltar ao topo">

@@ -631,6 +631,65 @@ function configurarVideoLocal() {
   video.addEventListener("ended", fechar);
 }
 
+/* ---------- Prévia de seção (Confirmar presença / Presentes) ----------
+   Em vez de rolar direto pra seção (o que faz pular tudo que tem no
+   meio), abre a seção de verdade num modal de tela cheia. Ao fechar,
+   a página continua exatamente de onde estava — quem quiser, ainda
+   vai ver a mesma seção normalmente rolando a página até lá. */
+function configurarPreviaSecao() {
+  const modal = document.getElementById("secao-modal");
+  const conteudo = document.getElementById("secao-modal-conteudo");
+  const closeBtn = document.getElementById("secao-modal-close");
+  const gatilhos = document.querySelectorAll("[data-preview-secao]");
+  if (!modal || !conteudo || !gatilhos.length) return;
+
+  let secaoAtual = null;
+  let marcador = null;
+
+  function abrir(id) {
+    const secao = document.getElementById(id);
+    if (!secao || secaoAtual) return;
+
+    marcador = document.createComment("posicao-original-" + id);
+    secao.parentNode.insertBefore(marcador, secao);
+    conteudo.appendChild(secao);
+    secaoAtual = secao;
+
+    // Garante que o conteúdo apareça mesmo se a seção nunca tiver
+    // ficado visível na rolagem normal (senão fica com opacidade 0,
+    // esperando um scroll que não vai acontecer dentro do modal).
+    secao.querySelectorAll(".fade-up").forEach((el) => el.classList.add("is-visible"));
+
+    modal.classList.add("open");
+    modal.scrollTop = 0;
+  }
+
+  function fechar() {
+    if (secaoAtual && marcador) {
+      marcador.parentNode.insertBefore(secaoAtual, marcador);
+      marcador.remove();
+    }
+    secaoAtual = null;
+    marcador = null;
+    modal.classList.remove("open");
+  }
+
+  gatilhos.forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      abrir(el.getAttribute("data-preview-secao"));
+    });
+  });
+
+  if (closeBtn) closeBtn.addEventListener("click", fechar);
+  modal.addEventListener("click", (e) => {
+    if (e.target === modal) fechar();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("open")) fechar();
+  });
+}
+
 /* ---------- Inicialização ---------- */
 document.addEventListener("DOMContentLoaded", () => {
   popularCampos();
@@ -645,5 +704,6 @@ document.addEventListener("DOMContentLoaded", () => {
   configurarPresentes();
   configurarGaleria();
   configurarVideoLocal();
+  configurarPreviaSecao();
   configurarFadeUp();
 });

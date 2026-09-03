@@ -940,6 +940,42 @@ button.quick-action {
   cursor: pointer;
 }
 
+/* ---------- Modal de prévia de seção (Confirmar presença / Presentes) ----------
+   Mostra a seção de verdade (a mesma que existe mais abaixo na
+   página) num overlay de tela cheia, sem pular o conteúdo do meio.
+   Fica abaixo do pix-modal/video-modal (z-index 600) de propósito,
+   pra eles ainda aparecerem por cima se abertos a partir daqui. */
+#secao-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 550;
+  background: var(--cream);
+  overflow-y: auto;
+  display: none;
+}
+#secao-modal.open { display: block; }
+#secao-modal-conteudo { padding-top: 64px; }
+#secao-modal-close {
+  position: fixed;
+  top: 14px; right: 16px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 9px 16px;
+  border: none;
+  border-radius: 999px;
+  background: var(--white);
+  box-shadow: var(--shadow);
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  cursor: pointer;
+}
+#secao-modal-close span { font-size: 1.15rem; line-height: 1; }
+
 /* ---------- Vídeo 360° do local (tela cheia) ---------- */
 #video-modal {
   position: fixed; inset: 0;
