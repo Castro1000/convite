@@ -109,7 +109,7 @@ const LISTA_PRESENTES = [
   { titulo: "Maquiagem para a noiva ficar linda", valor: 400, imagem: "images/maquiagem.gif" },
   { titulo: "De coração, qualquer valor", valor: 250, valorLivre: true, imagem: "images/caozinho.gif" },
   { titulo: "Investimento pesado na felicidade do nosso casal preferido", valor: 500, imagem: "images/gatosdancando.gif" },
-  { titulo: "Jesus tocou no meu coração, receba!", valor: 1000, imagem: "images/casal.gif" },
+  { titulo: "Jesus tocou no meu coração, receba!", valor: 1000, imagem: "images/padre.gif" },
 ];
 
 /* ===================================================================
