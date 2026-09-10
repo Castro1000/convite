@@ -85,7 +85,11 @@ const WEDDING = {
   whatsappMensagem: "Olá! Gostaria de confirmar minha presença no casamento de {noiva} e {noivo}. 🤍",
 
   // Dados para presente via Pix
-  pixKey: "009.892.722-14",
+  pixKey: "(92) 98953-9260",
+  // Tipo da chave acima — precisa bater com o que está em "pixKey",
+  // porque o formato exigido pelo QR Code muda de acordo:
+  // "cpf", "cnpj", "telefone" ou "email"/"aleatoria" (essas duas vão sem formatação extra)
+  pixTipo: "telefone",
   pixNome: "Ivaney de Castro",
   pixCidade: "Borba", // cidade do titular da chave — exigido pelo padrão do QR Code Pix
 };
@@ -445,11 +449,13 @@ function crc16Pix(payload) {
   return crc.toString(16).toUpperCase().padStart(4, "0");
 }
 
-// CPF/CNPJ (chave só com números, pontuada ou não) precisa ir sem
-// pontuação no QR Code; e-mail, telefone e chave aleatória vão como estão.
-function normalizarChavePix(chave) {
+// Cada tipo de chave Pix precisa de um formato diferente dentro do
+// QR Code: CPF/CNPJ vão só com números; telefone precisa do "+55"
+// na frente; e-mail e chave aleatória vão exatamente como cadastrados.
+function normalizarChavePix(chave, tipo) {
   const somenteDigitos = (chave || "").replace(/\D/g, "");
-  if (somenteDigitos.length === 11 || somenteDigitos.length === 14) return somenteDigitos;
+  if (tipo === "telefone") return "+55" + somenteDigitos;
+  if (tipo === "cpf" || tipo === "cnpj") return somenteDigitos;
   return (chave || "").trim();
 }
 
@@ -457,12 +463,12 @@ function normalizarChavePix(chave) {
 // ou cola o código no banco não precisar digitar nada. Se "valor" não
 // for passado (presente de valor livre), o campo do valor fica de
 // fora do código — a pessoa digita o quanto quiser no app do banco.
-function gerarPayloadPix({ chave, nome, cidade, valor, txid }) {
+function gerarPayloadPix({ chave, tipo, nome, cidade, valor, txid }) {
   const nomeSanitizado = removerAcentos(nome).toUpperCase().slice(0, 25);
   const cidadeSanitizada = removerAcentos(cidade).toUpperCase().slice(0, 15);
   const txidSanitizado = (txid || "***").replace(/[^A-Za-z0-9]/g, "").slice(0, 25) || "***";
 
-  const contaPix = tlvPix("00", "BR.GOV.BCB.PIX") + tlvPix("01", normalizarChavePix(chave));
+  const contaPix = tlvPix("00", "BR.GOV.BCB.PIX") + tlvPix("01", normalizarChavePix(chave, tipo));
   const campoValor = valor != null ? tlvPix("54", Number(valor).toFixed(2)) : "";
 
   let payload =
@@ -525,6 +531,7 @@ function configurarPresentes() {
 
     payloadAtual = gerarPayloadPix({
       chave: WEDDING.pixKey,
+      tipo: WEDDING.pixTipo,
       nome: WEDDING.pixNome,
       cidade: WEDDING.pixCidade,
       valor: item.valorLivre ? null : item.valor,
