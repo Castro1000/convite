@@ -395,7 +395,10 @@ function configurarMapas() {
   const linkRecepcao = document.getElementById("recepcao-maps");
   const url = (busca) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(busca)}`;
   if (linkCerimonia) linkCerimonia.href = url(`${WEDDING.cerimonia.local}, ${WEDDING.cerimonia.endereco}`);
-  if (linkRecepcao) linkRecepcao.href = url(`${WEDDING.recepcao.local}, ${WEDDING.recepcao.endereco}`);
+  // Só o endereço aqui (sem o nome do local): "Casa dos Romeiros" sozinho
+  // faz o Google Maps confundir com um lugar de mesmo nome em outra
+  // cidade (Limeira-SP) — o endereço completo já é bem específico.
+  if (linkRecepcao) linkRecepcao.href = url(WEDDING.recepcao.endereco);
 }
 
 /* ---------- Adicionar à agenda (.ics) ---------- */
