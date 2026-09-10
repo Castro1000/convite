@@ -83,11 +83,11 @@ const WEDDING = {
   whatsappMensagem: "Olá! Gostaria de confirmar minha presença no casamento de {noiva} e {noivo}. 🤍",
 
   // Dados para presente via Pix
-  pixKey: "(92) 98853-9260",
+  pixKey: "041.729.192-27",
   // Tipo da chave acima — precisa bater com o que está em "pixKey",
   // porque o formato exigido pelo QR Code muda de acordo:
   // "cpf", "cnpj", "telefone" ou "email"/"aleatoria" (essas duas vão sem formatação extra)
-  pixTipo: "telefone",
+  pixTipo: "cpf",
   pixNome: "Ingrid Aparecida",
   pixCidade: "Borba", // cidade do titular da chave — exigido pelo padrão do QR Code Pix
 
