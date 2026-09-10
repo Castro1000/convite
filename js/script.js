@@ -85,13 +85,18 @@ const WEDDING = {
   whatsappMensagem: "Olá! Gostaria de confirmar minha presença no casamento de {noiva} e {noivo}. 🤍",
 
   // Dados para presente via Pix
-  pixKey: "(92) 98953-9260",
+  pixKey: "(92) 98853-9260",
   // Tipo da chave acima — precisa bater com o que está em "pixKey",
   // porque o formato exigido pelo QR Code muda de acordo:
   // "cpf", "cnpj", "telefone" ou "email"/"aleatoria" (essas duas vão sem formatação extra)
   pixTipo: "telefone",
-  pixNome: "Ivaney de Castro",
+  pixNome: "Ingrid Aparecida",
   pixCidade: "Borba", // cidade do titular da chave — exigido pelo padrão do QR Code Pix
+
+  // WhatsApp da titular do Pix (mesmo número da chave acima) — é pra
+  // onde vai a mensagem de "já fiz o Pix" depois que a pessoa paga.
+  // Mesmo formato do "whatsapp" logo acima: só números, com DDI+DDD.
+  pixWhatsapp: "5592988539260",
 };
 
 /* -----------------------------------------------------------------
@@ -546,7 +551,7 @@ function configurarPresentes() {
 
     if (avisarBtn) {
       const mensagem = `Oi! Acabei de fazer o Pix do presente "${item.titulo}" 💙`;
-      avisarBtn.href = `https://wa.me/${WEDDING.whatsapp}?text=${encodeURIComponent(mensagem)}`;
+      avisarBtn.href = `https://wa.me/${WEDDING.pixWhatsapp}?text=${encodeURIComponent(mensagem)}`;
     }
 
     qrEl.innerHTML = "";
