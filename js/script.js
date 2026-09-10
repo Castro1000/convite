@@ -71,7 +71,10 @@ const WEDDING = {
   recepcao: {
     horario: "Após a celebração",
     local: "Auditório da Casa dos Romeiros",
-    endereco: "Rua Marechal Floriano, s/nº - Centro, Borba - AM",
+    // Mesmo endereço da cerimônia — o auditório fica bem do lado da
+    // Basílica, então usar o mesmo texto garante que "Como chegar"
+    // caia no lugar certo, sem risco de confundir com outro lugar.
+    endereco: "Centro, Borba – Am",
   },
 
   // WhatsApp para confirmação de presença.
