@@ -70,7 +70,7 @@ const WEDDING = {
 
   recepcao: {
     horario: "Após a celebração",
-    local: "Local a definir",
+    local: "Auditório da Casa dos Romeiros",
     endereco: "Borba - AM",
   },
 
@@ -393,9 +393,9 @@ function configurarFadeUp() {
 function configurarMapas() {
   const linkCerimonia = document.getElementById("cerimonia-maps");
   const linkRecepcao = document.getElementById("recepcao-maps");
-  const url = (endereco) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(endereco)}`;
-  if (linkCerimonia) linkCerimonia.href = url(WEDDING.cerimonia.endereco);
-  if (linkRecepcao) linkRecepcao.href = url(WEDDING.recepcao.endereco);
+  const url = (busca) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(busca)}`;
+  if (linkCerimonia) linkCerimonia.href = url(`${WEDDING.cerimonia.local}, ${WEDDING.cerimonia.endereco}`);
+  if (linkRecepcao) linkRecepcao.href = url(`${WEDDING.recepcao.local}, ${WEDDING.recepcao.endereco}`);
 }
 
 /* ---------- Adicionar à agenda (.ics) ---------- */
