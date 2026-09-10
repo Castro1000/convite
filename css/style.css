@@ -537,24 +537,40 @@ section.alt { background: var(--cream-alt); }
   font-size: 0.95rem;
 }
 
+/* Seta animada de "role para baixo" — repetida em quase toda seção
+   do site, pra deixar claro que sempre tem mais conteúdo abaixo. */
 .scroll-cue {
-  margin-top: 20px;
+  margin-top: 26px;
   display: inline-flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 2px;
   font-size: 0.68rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--ink-soft);
+  color: var(--gold-dark);
 }
-.scroll-cue .line {
-  width: 1px;
-  height: 34px;
-  background: linear-gradient(var(--gold), transparent);
-  animation: dropline 1.8s ease-in-out infinite;
+.scroll-cue-seta {
+  width: 24px;
+  height: 24px;
+  animation: seta-quica 1.6s ease-in-out infinite;
 }
-@keyframes dropline { 0%{transform:scaleY(0.3);opacity:.4;} 50%{transform:scaleY(1);opacity:1;} 100%{transform:scaleY(0.3);opacity:.4;} }
+@keyframes seta-quica {
+  0%, 100% { transform: translateY(0); opacity: 0.55; }
+  50%      { transform: translateY(9px); opacity: 1; }
+}
+
+/* Variante usada sobre a foto em destaque — a borda debaixo da foto
+   já esmaece pra cor creme do site, então a seta fica na mesma cor
+   das outras, só que sobreposta e ancorada no rodapé da seção. */
+.scroll-cue.sobre-foto {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  transform: translateX(-50%);
+  margin-top: 0;
+  z-index: 2;
+}
 
 /* =========================================================
    FOTO EM DESTAQUE (full-bleed, com borda em "nuvem")
