@@ -24,29 +24,27 @@ window.scrollTo({ top: 0, left: 0, behavior: "instant" });
 // Também garante que uma atualização publicada apareça sozinha, sem
 // precisar recarregar a página várias vezes: assim que o novo
 // service worker assume, a página recarrega automaticamente.
+// "registroSWPromise" fica disponível pro portão de atualização (a
+// tela do selo antes da capa) usar pra checar a versão mais nova.
+let registroSWPromise = Promise.resolve(null);
 if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("sw.js")
-      .then((registro) => {
-        // Verifica na hora se já existe uma versão mais nova publicada.
-        registro.update().catch(() => {});
-        // E confere de novo sempre que a pessoa volta pra essa aba
-        // (ex: trocou de app e voltou).
-        document.addEventListener("visibilitychange", () => {
-          if (document.visibilityState === "visible") registro.update().catch(() => {});
-        });
-      })
-      .catch(() => {
-        /* navegador sem suporte ou bloqueado — o site continua funcionando normalmente online */
+  registroSWPromise = navigator.serviceWorker
+    .register("sw.js")
+    .then((registro) => {
+      // Confere de novo sempre que a pessoa volta pra essa aba
+      // (ex: trocou de app e voltou).
+      document.addEventListener("visibilitychange", () => {
+        if (document.visibilityState === "visible") registro.update().catch(() => {});
       });
+      return registro;
+    })
+    .catch(() => null);
 
-    let jaRecarregou = false;
-    navigator.serviceWorker.addEventListener("controllerchange", () => {
-      if (jaRecarregou) return;
-      jaRecarregou = true;
-      window.location.reload();
-    });
+  let jaRecarregou = false;
+  navigator.serviceWorker.addEventListener("controllerchange", () => {
+    if (jaRecarregou) return;
+    jaRecarregou = true;
+    window.location.reload();
   });
 }
 
@@ -236,6 +234,46 @@ function iniciarContagem() {
 
   tick();
   setInterval(tick, 1000);
+}
+
+/* ---------- Portão de atualização (selo antes da capa) ----------
+   Fica por cima de tudo assim que o link abre. Ao tocar no selo, ele
+   estoura num clarão e a tela inteira "entra" por dentro dele (um
+   íris fechando bem no ponto do toque) — e em paralelo, sem travar
+   essa transição, confere se tem versão nova do site publicada. Se
+   tiver, o listener de "controllerchange" (lá em cima) recarrega a
+   página sozinho a qualquer momento, garantindo que ninguém fique
+   preso numa cópia velha guardada em cache no celular. */
+function configurarPortaoAtualizacao() {
+  const gate = document.getElementById("update-gate");
+  if (!gate) return;
+  const selo = gate.querySelector(".update-gate-selo");
+  let liberado = false;
+
+  function liberar() {
+    if (liberado) return;
+    liberado = true;
+    gate.classList.add("hidden");
+  }
+
+  gate.addEventListener("click", () => {
+    if (liberado) return;
+    gate.style.pointerEvents = "none";
+
+    // Centraliza a transição exatamente em cima do selo.
+    if (selo) {
+      const r = selo.getBoundingClientRect();
+      const x = ((r.left + r.width / 2) / window.innerWidth) * 100;
+      const y = ((r.top + r.height / 2) / window.innerHeight) * 100;
+      gate.style.setProperty("--origem-x", x + "%");
+      gate.style.setProperty("--origem-y", y + "%");
+    }
+    gate.classList.add("saindo");
+
+    registroSWPromise.then((registro) => registro && registro.update().catch(() => {}));
+
+    setTimeout(liberar, 900);
+  });
 }
 
 /* ---------- Envelope de abertura ---------- */
@@ -730,6 +768,7 @@ function configurarPreviaSecao() {
 document.addEventListener("DOMContentLoaded", () => {
   popularCampos();
   iniciarContagem();
+  configurarPortaoAtualizacao();
   configurarEnvelope();
   configurarMusica();
   configurarNavbar();

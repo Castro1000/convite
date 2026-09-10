@@ -173,6 +173,91 @@ section.alt { background: var(--cream-alt); }
 .fade-up.is-visible { opacity: 1; transform: translateY(0); }
 
 /* =========================================================
+   PORTÃO DE ATUALIZAÇÃO — fica por cima de tudo até tocar no selo
+   ========================================================= */
+#update-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  background: var(--cream);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 0 32px;
+  cursor: pointer;
+  --origem-x: 50%;
+  --origem-y: 50%;
+  clip-path: circle(150% at var(--origem-x) var(--origem-y));
+  transition: clip-path 0.9s cubic-bezier(.76,0,.24,1);
+}
+/* Ao tocar: o selo estoura num clarão e a tela inteira "entra" por
+   dentro dele — um íris fechando exatamente no ponto do selo. */
+#update-gate.saindo {
+  clip-path: circle(0% at var(--origem-x) var(--origem-y));
+}
+#update-gate.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.update-gate-flash {
+  position: absolute;
+  left: var(--origem-x);
+  top: var(--origem-y);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(146,168,209,0.55) 45%, rgba(146,168,209,0) 72%);
+  transform: translate(-50%, -50%) scale(0);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1;
+}
+#update-gate.saindo .update-gate-flash {
+  animation: update-gate-flash-estoura 0.8s ease-out forwards;
+}
+@keyframes update-gate-flash-estoura {
+  0%   { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  22%  { opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(26); opacity: 0; }
+}
+.update-gate-selo {
+  width: 112px;
+  height: auto;
+  margin-bottom: 6px;
+  filter: drop-shadow(0 8px 18px rgba(20,32,54,0.25));
+  animation: update-gate-pulsa 2s ease-in-out infinite;
+  position: relative;
+  z-index: 2;
+}
+#update-gate.saindo .update-gate-selo {
+  animation: update-gate-selo-estoura 0.6s cubic-bezier(.4,0,.2,1) forwards;
+}
+@keyframes update-gate-pulsa {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.06); }
+}
+@keyframes update-gate-selo-estoura {
+  0%   { transform: scale(1) rotate(0deg); opacity: 1; }
+  45%  { transform: scale(1.4) rotate(10deg); opacity: 1; }
+  100% { transform: scale(0.15) rotate(35deg); opacity: 0; }
+}
+.update-gate-texto {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.88rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gold-dark);
+  position: relative;
+  z-index: 2;
+  transition: opacity 0.25s ease;
+}
+#update-gate.saindo .update-gate-texto { opacity: 0; }
+
+/* =========================================================
    ENVELOPE — tela de abertura
    ========================================================= */
 #envelope-screen {
