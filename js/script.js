@@ -110,15 +110,15 @@ const WEDDING = {
    detecta e mostra a foto no lugar do emoji.
    ----------------------------------------------------------------- */
 const LISTA_PRESENTES = [
-  { titulo: "Só pra dizer que nao dei nada", valor: 50, imagem: "images/5reais.jpeg" },
-  { titulo: "Cerveja de consolo para o noivo", valor: 100, imagem: "images/cerveja.gif" },
-  { titulo: "Ajuda para lua de mel", valor: 200, imagem: "images/creuza.gif" },
-  { titulo: "Primeiro jantar dos noivos", valor: 250, imagem: "images/homemdancando.gif" },
-  { titulo: "Cota pra comer e falar mal da festa hahahah", valor: 300, imagem: "images/velha.gif" },
-  { titulo: "Alvará pra roubar docinhos", valor: 350, imagem: "images/alvara.gif" },
-  { titulo: "Maquiagem para a noiva ficar linda", valor: 400, imagem: "images/maquiagem.gif" },
-  { titulo: "De coração, qualquer valor", valor: 250, valorLivre: true, imagem: "images/caozinho.gif" },
-  { titulo: "Investimento pesado na felicidade do nosso casal preferido", valor: 500, imagem: "images/gatosdancando.gif" },
+  { titulo: "Só pra dizer que nao dei nada", valor: 100, imagem: "images/5reais.jpeg" },
+  { titulo: "Cerveja de consolo para o noivo", valor: 200, imagem: "images/cerveja.gif" },
+  { titulo: "Ajuda para lua de mel", valor: 250, imagem: "images/creuza.gif" },
+  { titulo: "Primeiro jantar dos noivos", valor: 300, imagem: "images/homemdancando.gif" },
+  { titulo: "Cota pra comer e falar mal da festa hahahah", valor: 350, imagem: "images/velha.gif" },
+  { titulo: "Alvará pra roubar docinhos", valor: 400, imagem: "images/alvara.gif" },
+  { titulo: "Maquiagem para a noiva ficar linda", valor: 450, imagem: "images/maquiagem.gif" },
+  { titulo: "De coração, qualquer valor", valor: 500, valorLivre: true, imagem: "images/caozinho.gif" },
+  { titulo: "Investimento pesado na felicidade do nosso casal preferido", valor: 600, imagem: "images/gatosdancando.gif" },
   { titulo: "Jesus tocou no meu coração, receba!", valor: 1000, imagem: "images/padre.gif" },
 ];
 
